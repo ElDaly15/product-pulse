@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
-import 'package:product_pulse/core/widgets/custom_text_field.dart';
-import 'package:product_pulse/features/registretion_feature/presentation/views/register_view.dart';
+import 'package:product_pulse/core/widgets/custom_text_register_field.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/create_or_have_account_buttom.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_divider.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_regisretion_buttom.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_social_media_row.dart';
 
-class LoginViewBody extends StatefulWidget {
-  const LoginViewBody({super.key});
+class RegisterViewBody extends StatefulWidget {
+  const RegisterViewBody({super.key});
 
   @override
-  State<LoginViewBody> createState() => _LoginViewBodyState();
+  State<RegisterViewBody> createState() => _RegisterViewBodyState();
 }
 
-class _LoginViewBodyState extends State<LoginViewBody> {
+class _RegisterViewBodyState extends State<RegisterViewBody> {
   final _formKey = GlobalKey<FormState>();
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
@@ -37,7 +36,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               ),
               Center(
                 child: Text(
-                  'Login Here',
+                  'Create Account',
                   style: Style.font24Bold(context).copyWith(
                     color: const Color(0xff1F41BB),
                   ),
@@ -47,21 +46,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 height: height * 0.03,
               ),
               Text(
-                'Welcome back you\'ve',
+                'Create an account so you can explore all the existing products',
                 style: Style.font20SemiBold(context).copyWith(
                   color: Colors.black,
                 ),
-              ),
-              Text(
-                'been missed',
-                style: Style.font20SemiBold(context).copyWith(
-                  color: Colors.black,
-                ),
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: height * 0.08,
               ),
-              CustomTextField(
+              CustomTextFieldForRegistration(
                 hintTitle: 'Email',
                 obscure: false,
                 onChanged: (value) {},
@@ -70,7 +64,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               SizedBox(
                 height: height * 0.03,
               ),
-              CustomTextField(
+              CustomTextFieldForRegistration(
                 hintTitle: 'Password',
                 obscure: true,
                 onChanged: (value) {},
@@ -79,19 +73,17 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               SizedBox(
                 height: height * 0.03,
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'Forget Your Password?',
-                  style: Style.font18SemiBold(context)
-                      .copyWith(color: const Color(0XFF1F41BB)),
-                ),
+              CustomTextFieldForRegistration(
+                hintTitle: 'Confirm Password',
+                obscure: true,
+                onChanged: (value) {},
+                isPassword: true,
               ),
               SizedBox(
                 height: height * 0.03,
               ),
               CustomRegistretionButtom(
-                title: 'Sign in',
+                title: 'Sign Up',
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                   } else {
@@ -104,15 +96,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 height: height * 0.03,
               ),
               CheckAccountOrCreateNewButtom(
-                title: 'Create new account',
+                title: 'Already Have an Account?',
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const RegisterView();
-                      },
-                    ),
-                  );
+                  Navigator.pop(context);
                 },
               ),
               SizedBox(

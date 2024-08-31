@@ -47,45 +47,45 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onChanged: widget.onChanged,
         style: Style.font18Medium(context),
         decoration: InputDecoration(
-          suffixIcon: widget.isPassword
-              ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      checkPassword = !checkPassword;
-                      widget.obscure = !checkPassword;
-                    });
-                  },
-                  icon: checkPassword
-                      ? const Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: Color.fromARGB(255, 0, 13, 95),
-                        )
-                      : const Icon(
-                          Icons.remove_red_eye,
-                          color: Color.fromARGB(255, 0, 13, 95),
-                        ),
-                )
-              : null,
-          hintText: widget.hintTitle,
-          hintStyle: Style.font18Medium(context)
-              .copyWith(color: const Color(0xff626262)),
-          fillColor: const Color(0xffF1F4FF),
-          filled: true,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-                color: Color.fromARGB(255, 0, 13, 95), width: 2),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-                color: Color.fromARGB(255, 0, 13, 95), width: 2),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Colors.white, width: 2),
-          ),
-        ),
+            suffixIcon: widget.isPassword
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        checkPassword = !checkPassword;
+                        widget.obscure = !checkPassword;
+                      });
+                    },
+                    icon: checkPassword
+                        ? const Icon(
+                            Icons.remove_red_eye_outlined,
+                            color: Color.fromARGB(255, 0, 13, 95),
+                          )
+                        : const Icon(
+                            Icons.remove_red_eye,
+                            color: Color.fromARGB(255, 0, 13, 95),
+                          ),
+                  )
+                : null,
+            hintText: widget.hintTitle,
+            hintStyle: Style.font18Medium(context)
+                .copyWith(color: const Color(0xff626262)),
+            fillColor: const Color(0xffF1F4FF),
+            filled: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 0, 13, 95), width: 2),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 0, 13, 95), width: 2),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Colors.white, width: 2),
+            ),
+            errorStyle: Style.font14Bold(context).copyWith(color: Colors.red)),
         cursorColor: const Color(0xff1F41BB),
         obscureText: widget.obscure,
       ),
