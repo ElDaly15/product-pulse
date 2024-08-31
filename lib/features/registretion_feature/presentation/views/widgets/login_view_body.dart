@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_text_field.dart';
@@ -6,8 +8,17 @@ import 'package:product_pulse/features/registretion_feature/presentation/views/w
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_regisretion_buttom.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_social_media_row.dart';
 
-class LoginViewBody extends StatelessWidget {
+class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
+
+  @override
+  State<LoginViewBody> createState() => _LoginViewBodyState();
+}
+
+class _LoginViewBodyState extends State<LoginViewBody> {
+  final _formKey = GlobalKey<FormState>();
+
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -15,91 +26,103 @@ class LoginViewBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 22),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SafeArea(
-              child: SizedBox(
-                height: height * 0.05,
-              ),
-            ),
-            Center(
-              child: Text(
-                'Login Here',
-                style: Style.font24Bold(context).copyWith(
-                  color: const Color(0xff1F41BB),
+        child: Form(
+          autovalidateMode: autovalidateMode,
+          key: _formKey,
+          child: Column(
+            children: [
+              SafeArea(
+                child: SizedBox(
+                  height: height * 0.05,
                 ),
               ),
-            ),
-            SizedBox(
-              height: height * 0.03,
-            ),
-            Text(
-              'Welcome back you\'ve',
-              style: Style.font20SemiBold(context).copyWith(
-                color: Colors.black,
+              Center(
+                child: Text(
+                  'Login Here',
+                  style: Style.font24Bold(context).copyWith(
+                    color: const Color(0xff1F41BB),
+                  ),
+                ),
               ),
-            ),
-            Text(
-              'been missed',
-              style: Style.font20SemiBold(context).copyWith(
-                color: Colors.black,
+              SizedBox(
+                height: height * 0.03,
               ),
-            ),
-            SizedBox(
-              height: height * 0.08,
-            ),
-            CustomTextField(
-              hintTitle: 'Email',
-              obscure: false,
-              onChanged: (value) {},
-              isPassword: false,
-            ),
-            SizedBox(
-              height: height * 0.03,
-            ),
-            CustomTextField(
-              hintTitle: 'Password',
-              obscure: false,
-              onChanged: (value) {},
-              isPassword: true,
-            ),
-            SizedBox(
-              height: height * 0.03,
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                'Forget Your Password?',
-                style: Style.font18SemiBold(context)
-                    .copyWith(color: const Color(0XFF1F41BB)),
+              Text(
+                'Welcome back you\'ve',
+                style: Style.font20SemiBold(context).copyWith(
+                  color: Colors.black,
+                ),
               ),
-            ),
-            SizedBox(
-              height: height * 0.03,
-            ),
-            CustomRegistretionButtom(
-              title: 'Sign in',
-              onPressed: () {},
-            ),
-            SizedBox(
-              height: height * 0.03,
-            ),
-            CheckAccountOrCreateNewButtom(
-              title: 'Create new account',
-              onPressed: () {},
-            ),
-            SizedBox(
-              height: height * 0.04,
-            ),
-            const CustomDivider(),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            const CustomSocailMediaConnectRow(),
-            SizedBox(
-              height: height * 0.04,
-            ),
-          ],
+              Text(
+                'been missed',
+                style: Style.font20SemiBold(context).copyWith(
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(
+                height: height * 0.08,
+              ),
+              CustomTextField(
+                hintTitle: 'Email',
+                obscure: false,
+                onChanged: (value) {},
+                isPassword: false,
+              ),
+              SizedBox(
+                height: height * 0.03,
+              ),
+              CustomTextField(
+                hintTitle: 'Password',
+                obscure: true,
+                onChanged: (value) {},
+                isPassword: true,
+              ),
+              SizedBox(
+                height: height * 0.03,
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  'Forget Your Password?',
+                  style: Style.font18SemiBold(context)
+                      .copyWith(color: const Color(0XFF1F41BB)),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.03,
+              ),
+              CustomRegistretionButtom(
+                title: 'Sign in',
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    log('ok');
+                  } else {
+                    log('no');
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
+                },
+              ),
+              SizedBox(
+                height: height * 0.03,
+              ),
+              CheckAccountOrCreateNewButtom(
+                title: 'Create new account',
+                onPressed: () {},
+              ),
+              SizedBox(
+                height: height * 0.04,
+              ),
+              const CustomDivider(),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              const CustomSocailMediaConnectRow(),
+              SizedBox(
+                height: height * 0.04,
+              ),
+            ],
+          ),
         ),
       ),
     );

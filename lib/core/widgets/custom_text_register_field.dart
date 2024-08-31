@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 
 // ignore: must_be_immutable
-class CustomTextField extends StatefulWidget {
-  CustomTextField({
-    super.key,
-    required this.hintTitle,
-    required this.obscure,
-    required this.onChanged,
-    required this.isPassword,
-  });
+class CustomTextFieldForRegistration extends StatefulWidget {
+  CustomTextFieldForRegistration(
+      {super.key,
+      required this.hintTitle,
+      required this.obscure,
+      required this.onChanged,
+      required this.isPassword});
   final String hintTitle;
   bool obscure;
 
@@ -17,10 +16,11 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<CustomTextFieldForRegistration> createState() =>
+      _CustomTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _CustomTextFieldState extends State<CustomTextFieldForRegistration> {
   bool checkPassword = false;
 
   @override
@@ -37,10 +37,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
           if (value == null || value.isEmpty) {
             return 'This Field Is Required';
           }
-          if (widget.isPassword) {
-            if (value.length < 8) {
-              return 'Password must be at least 8 characters';
-            }
+          if (widget.isPassword && value.length < 8) {
+            return 'Password must be at least 8 characters';
+          }
+          String pattern = r'(?=.*?[#?!@$%^&*-])';
+          RegExp regExp = RegExp(pattern);
+          if (!regExp.hasMatch(value)) {
+            return 'Password must contain at least one special character';
           }
           return null;
         },
@@ -50,10 +53,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
           suffixIcon: widget.isPassword
               ? IconButton(
                   onPressed: () {
-                    setState(() {
-                      checkPassword = !checkPassword;
-                      widget.obscure = !checkPassword;
-                    });
+                    checkPassword = !checkPassword;
+                    if (checkPassword) {
+                      widget.obscure = false;
+                    } else {
+                      widget.obscure = true;
+                    }
+                    setState(() {});
                   },
                   icon: checkPassword
                       ? const Icon(
@@ -63,8 +69,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       : const Icon(
                           Icons.remove_red_eye,
                           color: Color.fromARGB(255, 0, 13, 95),
-                        ),
-                )
+                        ))
               : null,
           hintText: widget.hintTitle,
           hintStyle: Style.font18Medium(context)
