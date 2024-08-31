@@ -81,10 +81,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               ),
               Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  'Forget Your Password?',
-                  style: Style.font18SemiBold(context)
-                      .copyWith(color: const Color(0XFF1F41BB)),
+                child: InkWell(
+                  onTap: () {},
+                  child: Text(
+                    'Forget Your Password?',
+                    style: Style.font18SemiBold(context)
+                        .copyWith(color: const Color(0XFF1F41BB)),
+                  ),
                 ),
               ),
               SizedBox(
@@ -106,7 +109,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               CheckAccountOrCreateNewButtom(
                 title: 'Create new account',
                 onPressed: () {
-                  Navigator.of(context).push(
+                  Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) {
                         return const RegisterView();

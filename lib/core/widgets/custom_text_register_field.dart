@@ -42,7 +42,7 @@ class _CustomTextFieldState extends State<CustomTextFieldForRegistration> {
           }
           String pattern = r'(?=.*?[#?!@$%^&*-])';
           RegExp regExp = RegExp(pattern);
-          if (!regExp.hasMatch(value)) {
+          if (!regExp.hasMatch(value) && widget.isPassword) {
             return 'Password must contain at least one special character';
           }
           return null;

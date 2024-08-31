@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_text_register_field.dart';
+import 'package:product_pulse/features/registretion_feature/presentation/views/login_view.dart';
+import 'package:product_pulse/features/registretion_feature/presentation/views/start_data_view.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/create_or_have_account_buttom.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_divider.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_regisretion_buttom.dart';
@@ -86,6 +88,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                 title: 'Sign Up',
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const StartDataView();
+                        },
+                      ),
+                    );
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});
@@ -98,7 +107,13 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
               CheckAccountOrCreateNewButtom(
                 title: 'Already Have an Account?',
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const LoginView();
+                      },
+                    ),
+                  );
                 },
               ),
               SizedBox(
