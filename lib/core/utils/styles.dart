@@ -87,7 +87,7 @@ abstract class Style {
 
   static TextStyle font18Regular(BuildContext context) {
     return TextStyle(
-        fontSize: getResponsiveFontSize(context, fontSize: 14),
+        fontSize: getResponsiveFontSize(context, fontSize: 18),
         color: Colors.black,
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w400);
@@ -95,7 +95,7 @@ abstract class Style {
 
   static TextStyle font18Medium(BuildContext context) {
     return TextStyle(
-        fontSize: getResponsiveFontSize(context, fontSize: 14),
+        fontSize: getResponsiveFontSize(context, fontSize: 18),
         color: Colors.black,
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w500);
@@ -103,7 +103,7 @@ abstract class Style {
 
   static TextStyle font18SemiBold(BuildContext context) {
     return TextStyle(
-        fontSize: getResponsiveFontSize(context, fontSize: 14),
+        fontSize: getResponsiveFontSize(context, fontSize: 18),
         color: Colors.black,
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w600);
@@ -111,7 +111,7 @@ abstract class Style {
 
   static TextStyle font18Bold(BuildContext context) {
     return TextStyle(
-        fontSize: getResponsiveFontSize(context, fontSize: 14),
+        fontSize: getResponsiveFontSize(context, fontSize: 18),
         color: Colors.black,
         fontFamily: 'Poppins',
         fontWeight: FontWeight.bold);
@@ -119,7 +119,7 @@ abstract class Style {
 
   static TextStyle font18ExtraBold(BuildContext context) {
     return TextStyle(
-        fontSize: getResponsiveFontSize(context, fontSize: 14),
+        fontSize: getResponsiveFontSize(context, fontSize: 18),
         color: Colors.black,
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w800);
