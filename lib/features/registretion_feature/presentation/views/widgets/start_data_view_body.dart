@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_snack_bar.dart';
 import 'package:product_pulse/core/widgets/custom_text_field.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/main_view.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/birth_day_pick.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_circle_avatar_stack.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_menu_drawer_for_product_select.dart';
@@ -131,6 +132,11 @@ class _StartDataViewBodyState extends State<StartDataViewBody>
                     onPressed: () {
                       if (formKeyData.currentState!.validate() &&
                           widget.selectedProduct != null) {
+                        formKeyData.currentState!.save();
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return MainView();
+                        }));
                       } else {
                         autovalidateModeData = AutovalidateMode.always;
                         setState(() {});

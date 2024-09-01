@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/main_view.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/start_app_view.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class ProductPulseApp extends StatelessWidget {
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
-      home: const StartAppView(),
+      home: const MainView(),
     );
   }
 }
