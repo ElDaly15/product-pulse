@@ -41,6 +41,7 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       backgroundColor: const Color(0XFFFFFFFF),
       body: PageView(
         controller: _pageController,
@@ -54,6 +55,7 @@ class _MainViewState extends State<MainView> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 5),
         child: CrystalNavigationBar(
+          enableFloatingNavBar: true,
           currentIndex: _SelectedTab.values.indexOf(_selectedTab),
           unselectedItemColor: Colors.white70,
           backgroundColor: const Color(0xff1F41BB),

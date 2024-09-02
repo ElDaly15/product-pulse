@@ -5,6 +5,7 @@ import 'package:product_pulse/core/utils/images.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/features/post_feature/data/models/select_item_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/item_btn_for_tab_bar.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/widgets/post_item.dart';
 
 class MainViewBody extends StatefulWidget {
   const MainViewBody({super.key});
@@ -36,11 +37,9 @@ class _MainViewBodyState extends State<MainViewBody> {
         child: CustomScrollView(
           slivers: [
             const SliverToBoxAdapter(
-              child: SafeArea(
-                  child: SizedBox(
-                height: 20,
-              )),
-            ),
+                child: SizedBox(
+              height: 60,
+            )),
             SliverToBoxAdapter(
               child: Row(
                 children: [
@@ -87,6 +86,21 @@ class _MainViewBodyState extends State<MainViewBody> {
                   },
                 ),
               ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 20,
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                return Padding(
+                  padding: index == 9
+                      ? const EdgeInsets.only(bottom: 100)
+                      : const EdgeInsets.only(bottom: 16),
+                  child: const PostItem(),
+                );
+              }, childCount: 10),
             ),
           ],
         ),

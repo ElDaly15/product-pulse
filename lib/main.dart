@@ -4,7 +4,7 @@ import 'package:product_pulse/features/post_feature/presentation/views/main_view
 
 void main() {
   runApp(DevicePreview(
-      enabled: true, builder: (context) => const ProductPulseApp()));
+      enabled: false, builder: (context) => const ProductPulseApp()));
 }
 
 class ProductPulseApp extends StatelessWidget {
