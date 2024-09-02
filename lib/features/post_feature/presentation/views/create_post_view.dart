@@ -50,6 +50,7 @@ class _CreatePostViewState extends State<CreatePostView> {
               color: Colors.grey,
             ),
             ListTile(
+              onTap: () {},
               leading: const Icon(
                 Icons.photo,
                 color: Colors.green,
