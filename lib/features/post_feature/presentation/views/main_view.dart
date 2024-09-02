@@ -1,8 +1,12 @@
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/chat_view.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/create_post_view.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/search_view.dart';
 
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/main_view_body.dart';
 import 'package:iconly/iconly.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/your_posts_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -19,10 +23,10 @@ class _MainViewState extends State<MainView> {
   final PageController _pageController = PageController(initialPage: 0);
   final List<Widget> pages = <Widget>[
     const MainViewBody(),
-    const MainViewBody(),
-    const MainViewBody(),
-    const MainViewBody(),
-    const MainViewBody(),
+    const YourPostsView(),
+    const CreatePostView(),
+    const SearchView(),
+    const ChatView(),
   ];
 
   void _handleIndexChanged(int i) {

@@ -23,7 +23,7 @@ class _MainViewBodyState extends State<MainViewBody> {
     SelectItemModel(iconData: FontAwesomeIcons.mobile, title: 'Mobiles'),
     SelectItemModel(iconData: FontAwesomeIcons.laptop, title: 'Laptobs'),
     SelectItemModel(iconData: FontAwesomeIcons.shirt, title: 'Clothes'),
-    SelectItemModel(iconData: FontAwesomeIcons.bootstrap, title: 'Shoes'),
+    SelectItemModel(iconData: FontAwesomeIcons.shoePrints, title: 'Shoes'),
     SelectItemModel(
         iconData: FontAwesomeIcons.sprayCanSparkles, title: 'Perfume'),
     SelectItemModel(iconData: FontAwesomeIcons.shuffle, title: 'Other'),
