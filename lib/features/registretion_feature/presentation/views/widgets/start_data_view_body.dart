@@ -135,7 +135,7 @@ class _StartDataViewBodyState extends State<StartDataViewBody>
                         formKeyData.currentState!.save();
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
-                          return MainView();
+                          return const MainView();
                         }));
                       } else {
                         autovalidateModeData = AutovalidateMode.always;

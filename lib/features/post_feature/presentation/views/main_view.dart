@@ -21,7 +21,8 @@ class _MainViewState extends State<MainView> {
     const MainViewBody(),
     const MainViewBody(),
     const MainViewBody(),
-    const MainViewBody()
+    const MainViewBody(),
+    const MainViewBody(),
   ];
 
   void _handleIndexChanged(int i) {
@@ -40,7 +41,6 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
       backgroundColor: const Color(0XFFFFFFFF),
       body: PageView(
         controller: _pageController,
@@ -52,7 +52,7 @@ class _MainViewState extends State<MainView> {
         },
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 5),
         child: CrystalNavigationBar(
           currentIndex: _SelectedTab.values.indexOf(_selectedTab),
           unselectedItemColor: Colors.white70,
@@ -68,9 +68,9 @@ class _MainViewState extends State<MainView> {
 
             /// Favourite
             CrystalNavigationBarItem(
-              icon: IconlyBold.heart,
-              unselectedIcon: IconlyLight.heart,
-              selectedColor: Colors.red,
+              icon: IconlyBold.paper,
+              unselectedIcon: IconlyLight.paper,
+              selectedColor: Colors.white,
             ),
 
             /// Add

@@ -31,6 +31,8 @@ class Assets {
   /// assets/images/vector_login.png
   static const String imagesVectorLogin = "assets/images/vector_login.png";
 
+  static const String wave = 'assets/images/wave.png';
+
   static const String imageOfStartUser =
       'https://secure.gravatar.com/avatar/7381b9e7e146bf03b5ef62ce417b53a2.jpg?s=192&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0024-192.png';
 }
