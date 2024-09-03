@@ -7,11 +7,13 @@ import 'package:product_pulse/features/post_feature/presentation/views/main_view
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/birth_day_pick.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_circle_avatar_stack.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/custom_menu_drawer_for_product_select.dart';
+import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/select_male_or_female.dart';
 
 // ignore: must_be_immutable
 class StartDataViewBody extends StatefulWidget {
   StartDataViewBody({super.key});
   String? selectedProduct;
+  String? gender;
 
   @override
   State<StartDataViewBody> createState() => _StartDataViewBodyState();
@@ -106,6 +108,24 @@ class _StartDataViewBodyState extends State<StartDataViewBody>
                 height: 15,
               ),
               Text(
+                'Select Your Gender',
+                style: Style.font18SemiBold(context)
+                    .copyWith(color: const Color(0xff1F41BB)),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              CustomDrawerForMaleOrFemale(
+                onChanged: (value) {
+                  widget.gender = value;
+
+                  setState(() {});
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
                 'Select Your Favourit Products You Bought Last Year',
                 style: Style.font18SemiBold(context)
                     .copyWith(color: const Color(0xff1F41BB)),
@@ -131,7 +151,8 @@ class _StartDataViewBodyState extends State<StartDataViewBody>
                             borderRadius: BorderRadius.circular(8))),
                     onPressed: () {
                       if (formKeyData.currentState!.validate() &&
-                          widget.selectedProduct != null) {
+                          widget.selectedProduct != null &&
+                          widget.gender != null) {
                         formKeyData.currentState!.save();
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
@@ -140,10 +161,22 @@ class _StartDataViewBodyState extends State<StartDataViewBody>
                       } else {
                         autovalidateModeData = AutovalidateMode.always;
                         setState(() {});
-                        if (widget.selectedProduct == null) {
+                        if (widget.selectedProduct == null &&
+                            widget.gender == null) {
                           CustomSnackBar().showSnackBar(
                               context: context,
-                              msg: 'Select Product From Products List');
+                              msg:
+                                  'Select Product From Products List and Select Your Gender');
+                        } else {
+                          if (widget.selectedProduct == null) {
+                            CustomSnackBar().showSnackBar(
+                                context: context,
+                                msg: 'Select Product From Products List');
+                          }
+                          if (widget.gender == null) {
+                            CustomSnackBar().showSnackBar(
+                                context: context, msg: 'Select Your Gender');
+                          }
                         }
                       }
                     },

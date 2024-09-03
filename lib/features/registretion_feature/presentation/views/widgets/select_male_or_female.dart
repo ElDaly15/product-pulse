@@ -2,27 +2,21 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 
-class CustomMenuDrawer extends StatefulWidget {
-  const CustomMenuDrawer({super.key, required this.onChanged});
+class CustomDrawerForMaleOrFemale extends StatefulWidget {
+  const CustomDrawerForMaleOrFemale({super.key, required this.onChanged});
 
   @override
-  State<CustomMenuDrawer> createState() => _CustomDrawerState();
+  State<CustomDrawerForMaleOrFemale> createState() => _CustomDrawerState();
 
   final void Function(String value) onChanged;
 }
 
-class _CustomDrawerState extends State<CustomMenuDrawer> {
+class _CustomDrawerState extends State<CustomDrawerForMaleOrFemale> {
   final List<String> items = [
-    'Cars',
-    'Electronics',
-    'Mobiles',
-    'Pc and Laptops',
-    'Clothes',
-    'Shoes',
-    'Perfume',
-    'Other',
+    'Male',
+    'Female',
   ];
-  String? selectedValue;
+  String? gender;
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
@@ -34,8 +28,7 @@ class _CustomDrawerState extends State<CustomMenuDrawer> {
                   width: 4,
                 ),
                 Expanded(
-                  child: Text('Select Product',
-                      style: Style.font18SemiBold(context)),
+                  child: Text('Gender', style: Style.font18SemiBold(context)),
                 ),
               ],
             ),
@@ -45,11 +38,11 @@ class _CustomDrawerState extends State<CustomMenuDrawer> {
                       child: Text(item, style: Style.font18SemiBold(context)),
                     ))
                 .toList(),
-            value: selectedValue,
+            value: gender,
             onChanged: (String? value) {
               setState(() {
-                selectedValue = value;
-                widget.onChanged(selectedValue!);
+                gender = value;
+                widget.onChanged(gender!);
               });
             },
             buttonStyleData: ButtonStyleData(

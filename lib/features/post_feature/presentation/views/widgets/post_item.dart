@@ -14,9 +14,10 @@ class PostItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Container(
-        decoration: BoxDecoration(boxShadow: const [
-          BoxShadow(spreadRadius: 1, blurRadius: 2, color: Colors.black26)
-        ], borderRadius: BorderRadius.circular(8), color: Colors.white),
+        decoration: BoxDecoration(
+            boxShadow: const [],
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.white),
         child: Column(
           children: [
             ListTile(

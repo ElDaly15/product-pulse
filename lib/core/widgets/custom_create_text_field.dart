@@ -33,7 +33,7 @@ class _CustomTextFieldState extends State<CustomCreateTextField> {
         selectionHandleColor: const Color(0xff1F41BB), // Handle color
       ),
       child: TextFormField(
-        maxLines: 4,
+        maxLines: 8,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'This Field Is Required';
@@ -72,21 +72,21 @@ class _CustomTextFieldState extends State<CustomCreateTextField> {
             hintText: widget.hintTitle,
             hintStyle: Style.font18Medium(context)
                 .copyWith(color: const Color(0xff626262)),
-            fillColor: const Color(0xffF1F4FF),
-            filled: true,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                  color: Color.fromARGB(255, 0, 13, 95), width: 2),
+              borderSide: BorderSide.none,
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                  color: Color.fromARGB(255, 0, 13, 95), width: 2),
+              borderSide: BorderSide.none,
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: Colors.white, width: 2),
+              borderSide: BorderSide.none,
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none,
             ),
             errorStyle: Style.font14Bold(context).copyWith(color: Colors.red)),
         cursorColor: const Color(0xff1F41BB),
