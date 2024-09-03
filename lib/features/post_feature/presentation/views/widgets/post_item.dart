@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/reactions_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/row_of_star_and_comments.dart';
 
 class PostItem extends StatelessWidget {
@@ -77,16 +78,34 @@ class PostItem extends StatelessWidget {
                   right: 16, left: 16, bottom: 16, top: 4),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  Text(
-                    123.toString(),
-                    style: Style.font14SemiBold(context),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      InkWell(
+                        splashColor: Colors.green,
+                        splashFactory: InkRipple.splashFactory,
+                        autofocus: true,
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return ReactionsView();
+                          }));
+                        },
+                        child: Text(
+                          123.toString(),
+                          style: Style.font14SemiBold(context),
+                        ),
+                      ),
+                    ],
                   ),
                   const Spacer(),
-                  Text('8 Comments', style: Style.font14SemiBold(context)),
+                  InkWell(
+                      onTap: () {},
+                      child: Text('8 Comments',
+                          style: Style.font14SemiBold(context))),
                 ],
               ),
             ),
