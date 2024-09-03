@@ -7,8 +7,26 @@ import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/reactions_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/row_of_star_and_comments.dart';
 
-class PostItem extends StatelessWidget {
+enum Menu { contact, remove }
+
+class PostItem extends StatefulWidget {
   const PostItem({super.key});
+
+  @override
+  State<PostItem> createState() => _PostItemState();
+}
+
+class _PostItemState extends State<PostItem> {
+  AnimationStyle? _animationStyle;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationStyle = AnimationStyle(
+      curve: Easing.emphasizedDecelerate,
+      duration: const Duration(seconds: 1),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +57,36 @@ class PostItem extends StatelessWidget {
                   ),
                 ],
               ),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(FontAwesomeIcons.ellipsis),
+              trailing: PopupMenuButton<Menu>(
+                surfaceTintColor: const Color(0xffffffff),
+                popUpAnimationStyle: _animationStyle,
+                icon: const Icon(Icons.more_vert),
+                onSelected: (Menu item) {},
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
+                  PopupMenuItem<Menu>(
+                    value: Menu.contact,
+                    child: ListTile(
+                      leading: const Icon(Icons.message_outlined),
+                      title: Text(
+                        'Chat With',
+                        style: Style.font14SemiBold(context),
+                      ),
+                    ),
+                  ),
+                  PopupMenuItem<Menu>(
+                    value: Menu.remove,
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.delete_outline,
+                        color: Colors.red,
+                      ),
+                      title: Text(
+                        'Remove Post',
+                        style: Style.font14SemiBold(context),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(
