@@ -91,7 +91,7 @@ class PostItem extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(builder: (context) {
-                            return ReactionsView();
+                            return const ReactionsView();
                           }));
                         },
                         child: Text(
@@ -102,10 +102,7 @@ class PostItem extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  InkWell(
-                      onTap: () {},
-                      child: Text('8 Comments',
-                          style: Style.font14SemiBold(context))),
+                  Text('8 Comments', style: Style.font14SemiBold(context)),
                 ],
               ),
             ),

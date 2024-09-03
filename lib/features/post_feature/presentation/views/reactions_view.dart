@@ -8,6 +8,7 @@ class ReactionsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffffffff),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22),
         child: Column(

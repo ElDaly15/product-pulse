@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/comments_view.dart';
 
 class RowOfStarAndComments extends StatelessWidget {
   const RowOfStarAndComments({super.key});
@@ -32,7 +33,11 @@ class RowOfStarAndComments extends StatelessWidget {
         ElevatedButton(
           style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xffffffff), elevation: 0),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return const CommentsView();
+            }));
+          },
           child: Row(
             children: [
               const Icon(
