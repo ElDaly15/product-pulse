@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/reactions_view.dart';
+import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/row_of_star_and_comments.dart';
 
 enum Menu { contact, remove }
@@ -58,12 +59,19 @@ class _PostItemState extends State<PostItem> {
                 ],
               ),
               trailing: PopupMenuButton<Menu>(
+                position: PopupMenuPosition.under,
                 surfaceTintColor: const Color(0xffffffff),
                 popUpAnimationStyle: _animationStyle,
                 icon: const Icon(Icons.more_vert),
                 onSelected: (Menu item) {},
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
                   PopupMenuItem<Menu>(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return const UsersChatView();
+                      }));
+                    },
                     value: Menu.contact,
                     child: ListTile(
                       leading: const Icon(Icons.message_outlined),
@@ -74,6 +82,7 @@ class _PostItemState extends State<PostItem> {
                     ),
                   ),
                   PopupMenuItem<Menu>(
+                    onTap: () {},
                     value: Menu.remove,
                     child: ListTile(
                       leading: const Icon(

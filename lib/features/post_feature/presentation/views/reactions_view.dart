@@ -22,7 +22,9 @@ class ReactionsView extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 itemCount: 12,
                 itemBuilder: (context, index) {
-                  return const UserProfileItem();
+                  return UserProfileItem(
+                    onTap: () {},
+                  );
                 },
               ),
             ),

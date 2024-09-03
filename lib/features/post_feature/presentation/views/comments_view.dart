@@ -19,6 +19,13 @@ class _CommentsViewState extends State<CommentsView> {
   String? text;
 
   @override
+  void dispose() {
+    super.dispose();
+    textEditingController.dispose();
+    _focusNode.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
@@ -43,37 +50,35 @@ class _CommentsViewState extends State<CommentsView> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               color: Colors.white,
-              child: Expanded(
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: CustomCommentTextField(
-                          focusNode: _focusNode,
-                          hintTitle: 'send a comment',
-                          textEditingController: textEditingController,
-                          obscure: false,
-                          onSubmit: (value) {
-                            text = value;
-                            setState(() {});
-                          },
-                          isPassword: false),
-                    ),
-                    IconButton(
-                        onPressed: text == null || text == ''
-                            ? null
-                            : () {
-                                textEditingController.clear();
-                                _focusNode.unfocus();
-                              },
-                        icon: Icon(
-                          FontAwesomeIcons.paperPlane,
-                          color: text == null || text == ''
-                              ? Colors.grey
-                              : const Color(0xff1F41BB),
-                        ))
-                  ],
-                ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: CustomCommentTextField(
+                        focusNode: _focusNode,
+                        hintTitle: 'send a comment',
+                        textEditingController: textEditingController,
+                        obscure: false,
+                        onSubmit: (value) {
+                          text = value;
+                          setState(() {});
+                        },
+                        isPassword: false),
+                  ),
+                  IconButton(
+                      onPressed: text == null || text == ''
+                          ? null
+                          : () {
+                              textEditingController.clear();
+                              _focusNode.unfocus();
+                            },
+                      icon: Icon(
+                        FontAwesomeIcons.paperPlane,
+                        color: text == null || text == ''
+                            ? Colors.grey
+                            : const Color(0xff1F41BB),
+                      ))
+                ],
               ),
             ),
           ],

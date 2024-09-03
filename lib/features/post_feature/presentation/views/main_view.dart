@@ -1,6 +1,6 @@
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:product_pulse/features/post_feature/presentation/views/chat_view.dart';
+import 'package:product_pulse/features/chat/presentation/views/chat_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/create_post_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/search_view.dart';
 

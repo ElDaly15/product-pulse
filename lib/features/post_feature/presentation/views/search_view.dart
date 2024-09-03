@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_search_text_field.dart';
 import 'package:product_pulse/features/post_feature/data/models/select_item_model.dart';
+import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/item_btn_for_tab_bar.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/post_item.dart';
 
@@ -119,7 +120,16 @@ class _SearchViewState extends State<SearchView> {
                 padding: i == 3
                     ? const EdgeInsets.only(bottom: 100)
                     : const EdgeInsets.only(bottom: 16),
-                child: index == 0 ? const UserProfileItem() : const PostItem(),
+                child: index == 0
+                    ? UserProfileItem(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return const UsersChatView();
+                          }));
+                        },
+                      )
+                    : const PostItem(),
               );
             }, childCount: 4),
           ),

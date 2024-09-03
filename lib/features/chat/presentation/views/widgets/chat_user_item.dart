@@ -3,12 +3,14 @@ import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 
 class ChatUserItem extends StatelessWidget {
-  const ChatUserItem({super.key});
+  const ChatUserItem({super.key, required this.onTap});
+
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      onTap: onTap,
       leading: const CustomUserCircleAvatar(),
       title: Text(
         'Mazen Eldaly',
