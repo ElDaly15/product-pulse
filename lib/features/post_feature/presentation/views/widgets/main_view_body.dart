@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:product_pulse/core/utils/images.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/features/post_feature/data/models/select_item_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/item_btn_for_tab_bar.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/post_item.dart';
+import 'package:product_pulse/features/registretion_feature/presentation/views/start_app_view.dart';
 
 class MainViewBody extends StatefulWidget {
   const MainViewBody({super.key});
@@ -48,6 +49,22 @@ class _MainViewBodyState extends State<MainViewBody> {
                     style: Style.font24Bold(context),
                   ),
                   Image.asset(Assets.wave),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () {
+                        FirebaseAuth.instance.signOut();
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const StartAppView();
+                            },
+                          ),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.logout,
+                        color: Colors.black,
+                      ))
                 ],
               ),
             ),
