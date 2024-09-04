@@ -1,5 +1,7 @@
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_offline/flutter_offline.dart';
+import 'package:product_pulse/core/widgets/no_internet_connecition.dart';
 import 'package:product_pulse/features/chat/presentation/views/chat_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/create_post_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/search_view.dart';
@@ -44,61 +46,67 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      backgroundColor: const Color(0XFFFFFFFF),
-      body: PageView(
-        controller: _pageController,
-        children: pages,
-        onPageChanged: (int index) {
-          setState(() {
-            _selectedTab = _SelectedTab.values[index];
-          });
-        },
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 5),
-        child: CrystalNavigationBar(
-          enableFloatingNavBar: true,
-          currentIndex: _SelectedTab.values.indexOf(_selectedTab),
-          unselectedItemColor: Colors.white70,
-          backgroundColor: const Color(0xff1F41BB),
-          onTap: _handleIndexChanged,
-          items: [
-            /// Home
-            CrystalNavigationBarItem(
-              icon: IconlyBold.home,
-              unselectedIcon: IconlyLight.home,
-              selectedColor: Colors.white,
-            ),
+    return OfflineBuilder(
+      connectivityBuilder: (context, value, child) {
+        final bool connection = value.first != ConnectivityResult.none;
+        return connection ? child : const NoconnectionScreen();
+      },
+      child: Scaffold(
+        extendBody: true,
+        backgroundColor: const Color(0XFFFFFFFF),
+        body: PageView(
+          controller: _pageController,
+          children: pages,
+          onPageChanged: (int index) {
+            setState(() {
+              _selectedTab = _SelectedTab.values[index];
+            });
+          },
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: CrystalNavigationBar(
+            enableFloatingNavBar: true,
+            currentIndex: _SelectedTab.values.indexOf(_selectedTab),
+            unselectedItemColor: Colors.white70,
+            backgroundColor: const Color(0xff1F41BB),
+            onTap: _handleIndexChanged,
+            items: [
+              /// Home
+              CrystalNavigationBarItem(
+                icon: IconlyBold.home,
+                unselectedIcon: IconlyLight.home,
+                selectedColor: Colors.white,
+              ),
 
-            /// Favourite
-            CrystalNavigationBarItem(
-              icon: IconlyBold.paper,
-              unselectedIcon: IconlyLight.paper,
-              selectedColor: Colors.white,
-            ),
+              /// Favourite
+              CrystalNavigationBarItem(
+                icon: IconlyBold.paper,
+                unselectedIcon: IconlyLight.paper,
+                selectedColor: Colors.white,
+              ),
 
-            /// Add
-            CrystalNavigationBarItem(
-              icon: IconlyBold.plus,
-              unselectedIcon: IconlyLight.plus,
-              selectedColor: Colors.white,
-            ),
+              /// Add
+              CrystalNavigationBarItem(
+                icon: IconlyBold.plus,
+                unselectedIcon: IconlyLight.plus,
+                selectedColor: Colors.white,
+              ),
 
-            /// Search
-            CrystalNavigationBarItem(
-                icon: IconlyBold.search,
-                unselectedIcon: IconlyLight.search,
-                selectedColor: Colors.white),
+              /// Search
+              CrystalNavigationBarItem(
+                  icon: IconlyBold.search,
+                  unselectedIcon: IconlyLight.search,
+                  selectedColor: Colors.white),
 
-            /// Profile
-            CrystalNavigationBarItem(
-              icon: IconlyBold.user_2,
-              unselectedIcon: IconlyLight.user,
-              selectedColor: Colors.white,
-            ),
-          ],
+              /// Profile
+              CrystalNavigationBarItem(
+                icon: IconlyBold.user_2,
+                unselectedIcon: IconlyLight.user,
+                selectedColor: Colors.white,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:product_pulse/core/controller/depency_injection.dart';
+import 'package:product_pulse/core/widgets/waiting_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/main_view.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/manager/add_user_data_cubit/add_user_data_cubit.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/manager/check_user_id/check_user_id_cubit.dart';
@@ -75,13 +76,7 @@ class ProductPulseApp extends StatelessWidget {
                     }
                   }
                 },
-                child: const Scaffold(
-                  backgroundColor: Color(0xffFFFFFF),
-                  body: Center(
-                      child: CircularProgressIndicator(
-                    color: Color(0xff1F41BB),
-                  )),
-                ),
+                child: const WelcomeScreen(),
               )
             : const StartAppView(),
       ),

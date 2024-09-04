@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_offline/flutter_offline.dart';
+import 'package:product_pulse/core/widgets/no_internet_connecition.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/widgets/register_view_body.dart';
 
 class RegisterView extends StatelessWidget {
@@ -6,9 +8,15 @@ class RegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xffFFFFFF),
-      body: RegisterViewBody(),
+    return OfflineBuilder(
+      connectivityBuilder: (context, value, child) {
+        final bool connection = value.first != ConnectivityResult.none;
+        return connection ? child : const NoconnectionScreen();
+      },
+      child: const Scaffold(
+        backgroundColor: Color(0xffFFFFFF),
+        body: RegisterViewBody(),
+      ),
     );
   }
 }
