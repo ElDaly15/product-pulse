@@ -72,7 +72,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                       }
                     },
                     child: Text(
-                      'Confirm',
+                      'Post',
                       style: Style.font18SemiBold(context)
                           .copyWith(color: const Color(0xff1F41BB)),
                     )),
