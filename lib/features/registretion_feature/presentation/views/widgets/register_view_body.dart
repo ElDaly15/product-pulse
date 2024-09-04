@@ -43,6 +43,8 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
         child: BlocListener<RegisterCubitCubit, RegisterCubitState>(
           listener: (context, state) {
             if (state is RegisterCubitSuccess) {
+              isAsync = false;
+              setState(() {});
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) {
@@ -51,12 +53,15 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                 ),
               );
             } else if (state is RegisterCubitFailuer) {
-              CustomSnackBar()
-                  .showSnackBar(context: context, msg: state.errorMsg);
               isAsync = false;
               setState(() {});
+              CustomSnackBar()
+                  .showSnackBar(context: context, msg: state.errorMsg);
             } else if (state is RegisterCubitLoading) {
               isAsync = true;
+              setState(() {});
+            } else if (state is RegisterCubitEndLoading) {
+              isAsync = false;
               setState(() {});
             } else {
               isAsync = false;

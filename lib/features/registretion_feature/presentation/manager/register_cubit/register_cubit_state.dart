@@ -14,3 +14,5 @@ final class RegisterCubitFailuer extends RegisterCubitState {
 }
 
 final class RegisterCubitLoading extends RegisterCubitState {}
+
+final class RegisterCubitEndLoading extends RegisterCubitState {}

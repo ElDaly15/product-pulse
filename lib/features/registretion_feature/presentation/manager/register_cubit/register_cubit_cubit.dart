@@ -27,5 +27,6 @@ class RegisterCubitCubit extends Cubit<RegisterCubitState> {
     } catch (e) {
       emit(RegisterCubitFailuer(errorMsg: 'Something went wrong'));
     }
+    emit(RegisterCubitEndLoading());
   }
 }
