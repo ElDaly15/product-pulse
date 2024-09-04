@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:product_pulse/core/utils/images.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/features/post_feature/data/models/select_item_model.dart';
@@ -52,6 +53,8 @@ class _MainViewBodyState extends State<MainViewBody> {
                   const Spacer(),
                   IconButton(
                       onPressed: () {
+                        GoogleSignIn googleSignIn = GoogleSignIn();
+                        googleSignIn.disconnect();
                         FirebaseAuth.instance.signOut();
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(

@@ -6,7 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:product_pulse/core/controller/depency_injection.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/main_view.dart';
+import 'package:product_pulse/features/registretion_feature/presentation/manager/add_user_data_cubit/add_user_data_cubit.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/manager/check_user_id/check_user_id_cubit.dart';
+import 'package:product_pulse/features/registretion_feature/presentation/manager/google_auth/google_auth_cubit.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/manager/register_cubit/register_cubit_cubit.dart';
 
@@ -41,6 +43,12 @@ class ProductPulseApp extends StatelessWidget {
           create: (context) => CheckUserIdCubit()
             ..checkUserId(FirebaseAuth.instance.currentUser!.uid),
         ),
+        BlocProvider(
+          create: (context) => AddUserDataCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GoogleAuthCubit(),
+        ),
       ],
       child: GetMaterialApp(
         locale: DevicePreview.locale(context),
@@ -57,10 +65,13 @@ class ProductPulseApp extends StatelessWidget {
                         return const MainView();
                       }));
                     } else {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return const StartDataView();
-                      }));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const StartDataView();
+                          },
+                        ),
+                      );
                     }
                   }
                 },

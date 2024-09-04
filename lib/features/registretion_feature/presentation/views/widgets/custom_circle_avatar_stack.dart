@@ -1,23 +1,56 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:product_pulse/core/utils/images.dart';
 import 'package:product_pulse/core/utils/styles.dart';
+import 'package:path/path.dart' as path;
+import 'package:product_pulse/core/widgets/custom_snack_bar.dart';
 
-class CustomStartDataImageStack extends StatelessWidget {
-  const CustomStartDataImageStack({super.key});
+class CustomStartDataImageStack extends StatefulWidget {
+  const CustomStartDataImageStack(
+      {super.key, required this.onSubmitImage, required this.status});
+
+  final Function(String image) onSubmitImage;
+  final Function(bool load) status;
+  @override
+  State<CustomStartDataImageStack> createState() =>
+      _CustomStartDataImageStackState();
+}
+
+class _CustomStartDataImageStackState extends State<CustomStartDataImageStack> {
+  File? file;
+
+  String? url;
+
+  Future<void> getImage({required ImageSource source}) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imageCamera = await picker.pickImage(source: source);
+
+    if (imageCamera != null) {
+      file = File(imageCamera.path);
+      var imageName = path.basename(imageCamera.path);
+      var refStorage = FirebaseStorage.instance.ref(imageName);
+      await refStorage.putFile(file!);
+      url = await refStorage.getDownloadURL();
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Stack(
         children: [
-          CircleAvatar(
-            backgroundColor: const Color(0xff1F41BB).withOpacity(0.2),
-            radius: 70,
+          SizedBox(
+            width: 140, // Adjust as needed
+            height: 140, // Adjust as needed
             child: ClipOval(
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: Assets.imageOfStartUser,
+                imageUrl: url ?? Assets.imageOfStartUser,
                 placeholder: (context, url) => const CircularProgressIndicator(
                   color: Color(0xff1F41BB),
                 ),
@@ -56,7 +89,32 @@ class CustomStartDataImageStack extends StatelessWidget {
                                       style: IconButton.styleFrom(
                                           backgroundColor:
                                               const Color(0xff1F41BB)),
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        try {
+                                          widget.status(true);
+                                          setState(() {});
+
+                                          await getImage(
+                                              source: ImageSource.camera);
+                                          // ignore: use_build_context_synchronously
+                                          Navigator.pop(context);
+                                          widget.onSubmitImage(url!);
+
+                                          CustomSnackBar().showSnackBar(
+                                              // ignore: use_build_context_synchronously
+                                              context: context,
+                                              msg: 'Image Uploaded');
+                                          widget.status(false);
+                                          setState(() {});
+                                        } catch (e) {
+                                          CustomSnackBar().showSnackBar(
+                                              // ignore: use_build_context_synchronously
+                                              context: context,
+                                              msg: 'An Error Occured');
+                                          widget.status(false);
+                                          setState(() {});
+                                        }
+                                      },
                                       icon: const Icon(
                                         Icons.camera,
                                         color: Colors.white,
@@ -74,7 +132,28 @@ class CustomStartDataImageStack extends StatelessWidget {
                                       style: IconButton.styleFrom(
                                           backgroundColor:
                                               const Color(0xff1F41BB)),
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        try {
+                                          widget.status(true);
+                                          setState(() {});
+                                          await getImage(
+                                              source: ImageSource.gallery);
+
+                                          CustomSnackBar().showSnackBar(
+                                              // ignore: use_build_context_synchronously
+                                              context: context,
+                                              msg: 'Uploaded');
+                                          widget.status(false);
+                                          setState(() {});
+                                        } catch (e) {
+                                          CustomSnackBar().showSnackBar(
+                                              // ignore: use_build_context_synchronously
+                                              context: context,
+                                              msg: 'error');
+                                          widget.status(false);
+                                          setState(() {});
+                                        }
+                                      },
                                       icon: const Icon(
                                         Icons.photo,
                                         color: Colors.white,
