@@ -140,7 +140,9 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           password == confirmPassword) {
                         await BlocProvider.of<RegisterCubitCubit>(context)
                             .registerNewUser(
-                                email: email!, password: password!);
+                                email: email!,
+                                password: password!,
+                                context: context);
                       } else {
                         if (password != confirmPassword) {
                           CustomSnackBar().showSnackBar(
