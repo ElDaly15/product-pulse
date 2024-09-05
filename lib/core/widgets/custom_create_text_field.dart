@@ -33,13 +33,13 @@ class _CustomTextFieldState extends State<CustomCreateTextField> {
         selectionHandleColor: const Color(0xff1F41BB), // Handle color
       ),
       child: TextFormField(
-        maxLines: 8,
+        maxLines: null,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'This Field Is Required';
+            return '';
           }
-          if (value.length < 32) {
-            return 'Post Must Be At Least 32 Characters';
+          if (value.length < 20) {
+            return 'Post Must Be At Least 20 Characters';
           }
           if (value.length > 220) {
             return 'Post Must Be At Most 220 Characters';

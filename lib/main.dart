@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:product_pulse/core/controller/depency_injection.dart';
 import 'package:product_pulse/core/widgets/waiting_view.dart';
+import 'package:product_pulse/features/post_feature/presentation/manager/add_post/add_post_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/main_view.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/manager/add_user_data_cubit/add_user_data_cubit.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/manager/check_user_id/check_user_id_cubit.dart';
@@ -49,6 +51,12 @@ class ProductPulseApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => GoogleAuthCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetUserDataCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AddPostCubit(),
         ),
       ],
       child: GetMaterialApp(
