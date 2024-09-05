@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 import 'package:product_pulse/features/post_feature/data/models/post_model.dart';
@@ -14,10 +13,14 @@ enum Menu { contact, remove }
 
 class PostItem extends StatefulWidget {
   const PostItem(
-      {super.key, required this.postItem, required this.userDataModel});
+      {super.key,
+      required this.postItem,
+      required this.userDataModel,
+      required this.postTime});
 
   final PostModel postItem;
   final UserDataModel userDataModel;
+  final String postTime;
   @override
   State<PostItem> createState() => _PostItemState();
 }
@@ -56,13 +59,13 @@ class _PostItemState extends State<PostItem> {
                 '${widget.postItem.firstName} ${widget.postItem.lastName}',
                 style: Style.font18Medium(context),
               ),
-              subtitle: const Row(
+              subtitle: Row(
                 children: [
-                  Text('5h ago'),
-                  SizedBox(
+                  Text(widget.postTime),
+                  const SizedBox(
                     width: 5,
                   ),
-                  Icon(
+                  const Icon(
                     FontAwesomeIcons.earthAmericas,
                     size: 15,
                   ),

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:product_pulse/core/utils/images.dart';
 import 'package:product_pulse/core/utils/styles.dart';
@@ -26,6 +29,7 @@ class _MainViewBodyState extends State<MainViewBody> {
   bool isAsync = false;
 
   UserDataModel? user;
+  Timer? timer;
 
   List<SelectItemModel> items = [
     SelectItemModel(iconData: FontAwesomeIcons.inbox, title: 'All Products'),
@@ -39,11 +43,18 @@ class _MainViewBodyState extends State<MainViewBody> {
     SelectItemModel(iconData: FontAwesomeIcons.shuffle, title: 'Other'),
   ];
 
+  void startTime() {
+    timer = Timer.periodic(const Duration(minutes: 1), (time) {
+      setState(() {});
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getUserData();
     getAllProducts();
+    startTime();
   }
 
   getUserData() async {
@@ -52,6 +63,12 @@ class _MainViewBodyState extends State<MainViewBody> {
 
   getAllProducts() async {
     await BlocProvider.of<GetPostsCubit>(context).getPosts();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer!.cancel();
   }
 
   @override
@@ -161,15 +178,31 @@ class _MainViewBodyState extends State<MainViewBody> {
                             return SliverList(
                               delegate:
                                   SliverChildBuilderDelegate((context, index) {
-                                return Padding(
-                                  padding: index == state.posts.length - 1
-                                      ? const EdgeInsets.only(bottom: 100)
-                                      : const EdgeInsets.only(bottom: 16),
-                                  child: PostItem(
-                                    userDataModel: userState.userDataModel,
-                                    postItem: state.posts[index],
-                                  ),
-                                );
+                                final timestamp = state.posts[index].timestamp;
+
+                                if (timestamp != null) {
+                                  final dateTime = timestamp.toDate();
+                                  final relativeTime =
+                                      formatTimeDifference(dateTime);
+                                  return Padding(
+                                    padding: index == state.posts.length - 1
+                                        ? const EdgeInsets.only(bottom: 100)
+                                        : const EdgeInsets.only(bottom: 16),
+                                    child: PostItem(
+                                      postTime: relativeTime,
+                                      userDataModel: userState.userDataModel,
+                                      postItem: state.posts[index],
+                                    ),
+                                  );
+                                } else {
+                                  return const Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 8),
+                                    child: Center(
+                                        child: CircularProgressIndicator(
+                                      color: Color(0xff1F41BB),
+                                    )),
+                                  );
+                                }
                               }, childCount: state.posts.length),
                             );
                           } else {
@@ -208,5 +241,28 @@ class _MainViewBodyState extends State<MainViewBody> {
         }
       },
     );
+  }
+}
+
+String formatTimeDifference(DateTime? postTime) {
+  if (postTime == null) return 'Unknown time';
+
+  final now = DateTime.now();
+  final difference = now.difference(postTime);
+
+  if (difference.inDays >= 3) {
+    // Format as date if 3 days or more
+    final dateFormat = DateFormat('d MMM'); // e.g., 6 Apr
+    return dateFormat.format(postTime);
+  } else if (difference.inDays == 2) {
+    return '2 days ago';
+  } else if (difference.inDays == 1) {
+    return '1 day ago';
+  } else if (difference.inHours > 0) {
+    return '${difference.inHours} hours ago';
+  } else if (difference.inMinutes > 0) {
+    return '${difference.inMinutes} minutes ago';
+  } else {
+    return 'Just now';
   }
 }

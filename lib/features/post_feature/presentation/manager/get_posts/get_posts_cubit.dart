@@ -17,6 +17,7 @@ class GetPostsCubit extends Cubit<GetPostsState> {
       emit(GetPostsLoading());
       FirebaseFirestore.instance
           .collection('posts')
+          .orderBy('postTime', descending: true)
           .snapshots()
           .listen((querySnapshot) {
         posts = querySnapshot.docs
@@ -38,6 +39,7 @@ class GetPostsCubit extends Cubit<GetPostsState> {
       emit(GetPostsLoading());
       FirebaseFirestore.instance
           .collection('posts')
+          .orderBy('postTime', descending: true)
           .where('category', isEqualTo: category)
           .snapshots()
           .listen((querySnapshot) {
