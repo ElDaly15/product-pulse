@@ -3,17 +3,26 @@ import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 
 class UserProfileItem extends StatelessWidget {
-  const UserProfileItem({super.key, required this.onTap});
+  const UserProfileItem(
+      {super.key,
+      required this.onTap,
+      required this.name,
+      required this.image});
 
   final Function()? onTap;
+
+  final String name;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      leading: const CustomUserCircleAvatar(),
+      leading: CustomUserCircleAvatar(
+        userImage: image,
+      ),
       title: Text(
-        'Mazen Eldaly',
+        name,
         style: Style.font18Medium(context),
       ),
     );

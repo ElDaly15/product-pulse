@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
+import 'package:product_pulse/features/post_feature/data/models/post_model.dart';
+import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/reactions_view.dart';
 import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/row_of_star_and_comments.dart';
@@ -11,8 +13,11 @@ import 'package:product_pulse/features/post_feature/presentation/views/widgets/r
 enum Menu { contact, remove }
 
 class PostItem extends StatefulWidget {
-  const PostItem({super.key});
+  const PostItem(
+      {super.key, required this.postItem, required this.userDataModel});
 
+  final PostModel postItem;
+  final UserDataModel userDataModel;
   @override
   State<PostItem> createState() => _PostItemState();
 }
@@ -34,16 +39,21 @@ class _PostItemState extends State<PostItem> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Container(
-        decoration: BoxDecoration(
-            boxShadow: const [],
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.white),
+        decoration: BoxDecoration(boxShadow: const [
+          BoxShadow(
+            spreadRadius: 1,
+            blurRadius: 1,
+            color: Colors.grey,
+          )
+        ], borderRadius: BorderRadius.circular(8), color: Colors.white),
         child: Column(
           children: [
             ListTile(
-              leading: const CustomUserCircleAvatar(),
+              leading: CustomUserCircleAvatar(
+                userImage: widget.postItem.userImage,
+              ),
               title: Text(
-                'Mazen Eldaly',
+                '${widget.postItem.firstName} ${widget.postItem.lastName}',
                 style: Style.font18Medium(context),
               ),
               subtitle: const Row(
@@ -101,9 +111,12 @@ class _PostItemState extends State<PostItem> {
             Padding(
               padding: const EdgeInsets.only(
                   right: 16, left: 16, bottom: 16, top: 4),
-              child: Text(
-                'This is my laptop , i need some help to make sure thats good for me or not pls help me This is my laptop , i need some help to make sure thats good for me or not pls help me ',
-                style: Style.font18Medium(context),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.postItem.title,
+                  style: Style.font18Medium(context),
+                ),
               ),
             ),
             Padding(
@@ -112,8 +125,7 @@ class _PostItemState extends State<PostItem> {
               child: CachedNetworkImage(
                 width: double.infinity,
                 fit: BoxFit.fill,
-                imageUrl:
-                    'https://m.media-amazon.com/images/I/71ehzrGUO7L._AC_SL1500_.jpg',
+                imageUrl: widget.postItem.image,
                 scale: 1,
                 placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(
@@ -132,31 +144,35 @@ class _PostItemState extends State<PostItem> {
                   right: 16, left: 16, bottom: 16, top: 4),
               child: Row(
                 children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      InkWell(
-                        splashColor: Colors.green,
-                        splashFactory: InkRipple.splashFactory,
-                        autofocus: true,
-                        onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return const ReactionsView();
-                          }));
-                        },
-                        child: Text(
-                          123.toString(),
-                          style: Style.font14SemiBold(context),
+                  widget.postItem.likes.isEmpty
+                      ? const SizedBox()
+                      : GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return ReactionsView(
+                                potsId: widget.postItem.postId,
+                              );
+                            }));
+                          },
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              Text(
+                                widget.postItem.likes.length.toString(),
+                                style: Style.font14SemiBold(context),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
                   const Spacer(),
-                  Text('8 Comments', style: Style.font14SemiBold(context)),
+                  widget.postItem.comments.isEmpty
+                      ? const SizedBox()
+                      : Text('${widget.postItem.comments.length} Comments',
+                          style: Style.font14SemiBold(context)),
                 ],
               ),
             ),
@@ -165,7 +181,11 @@ class _PostItemState extends State<PostItem> {
               endIndent: 20,
               indent: 20,
             ),
-            const RowOfStarAndComments(),
+            RowOfStarAndComments(
+              userDataModel: widget.userDataModel,
+              postModel: widget.postItem,
+              likes: widget.postItem.likes,
+            ),
           ],
         ),
       ),

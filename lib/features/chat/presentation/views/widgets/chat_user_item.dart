@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
-import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 
 class ChatUserItem extends StatelessWidget {
   const ChatUserItem({super.key, required this.onTap});
@@ -11,7 +10,7 @@ class ChatUserItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      leading: const CustomUserCircleAvatar(),
+      leading: const SizedBox(), //CustomUserCircleAvatar(),
       title: Text(
         'Mazen Eldaly',
         style: Style.font18Medium(context),

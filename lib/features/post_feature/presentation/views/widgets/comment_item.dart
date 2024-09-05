@@ -3,7 +3,14 @@ import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 
 class CommentItem extends StatelessWidget {
-  const CommentItem({super.key});
+  const CommentItem(
+      {super.key,
+      required this.image,
+      required this.name,
+      required this.comment});
+  final String image;
+  final String name;
+  final String comment;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +19,9 @@ class CommentItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomUserCircleAvatar(),
+          CustomUserCircleAvatar(
+            userImage: image,
+          ),
           const SizedBox(
             width: 8,
           ),
@@ -27,11 +36,11 @@ class CommentItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Mazen Eldaly',
+                  name,
                   style: Style.font18Bold(context),
                 ),
                 Text(
-                  'Good Product I Recommended it for you , I Bought this from bostan Mall in down town , egypt last year , and still work good with me , i rate this product 9/10',
+                  comment,
                   style: Style.font18Medium(context),
                 ),
               ],

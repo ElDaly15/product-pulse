@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
-import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 
 class CustomUserChatIAppBar extends StatelessWidget {
   const CustomUserChatIAppBar({super.key});
@@ -20,7 +19,7 @@ class CustomUserChatIAppBar extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          const CustomUserCircleAvatar(),
+          const SizedBox(), // CustomUserCircleAvatar(),
           const SizedBox(
             width: 15,
           ),

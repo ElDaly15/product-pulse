@@ -13,8 +13,7 @@ class GetUserDataCubit extends Cubit<GetUserDataState> {
   getUserData() async {
     try {
       emit(GetUserDataLoading());
-      QuerySnapshot querySnapshot = await FirebaseFirestore
-          .instance // To Get A Data To Email or anything you want
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('usersData')
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .limit(1)

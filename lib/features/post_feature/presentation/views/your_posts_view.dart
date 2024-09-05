@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
-import 'package:product_pulse/features/post_feature/presentation/views/widgets/post_item.dart';
 
 class YourPostsView extends StatelessWidget {
   const YourPostsView({super.key});
@@ -33,7 +32,7 @@ class YourPostsView extends StatelessWidget {
                 padding: index == 3
                     ? const EdgeInsets.only(bottom: 100)
                     : const EdgeInsets.only(bottom: 16),
-                child: const PostItem(),
+                child: const Text('1'), //PostItem(postItem: ,),
               );
             }, childCount: 4),
           ),
