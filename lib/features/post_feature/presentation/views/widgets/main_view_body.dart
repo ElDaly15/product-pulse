@@ -35,7 +35,7 @@ class _MainViewBodyState extends State<MainViewBody> {
     SelectItemModel(iconData: FontAwesomeIcons.inbox, title: 'All Products'),
     SelectItemModel(iconData: FontAwesomeIcons.bolt, title: 'Electronics'),
     SelectItemModel(iconData: FontAwesomeIcons.mobile, title: 'Mobiles'),
-    SelectItemModel(iconData: FontAwesomeIcons.laptop, title: 'Laptobs'),
+    SelectItemModel(iconData: FontAwesomeIcons.laptop, title: 'Laptops'),
     SelectItemModel(iconData: FontAwesomeIcons.shirt, title: 'Clothes'),
     SelectItemModel(iconData: FontAwesomeIcons.shoePrints, title: 'Shoes'),
     SelectItemModel(
@@ -147,7 +147,7 @@ class _MainViewBodyState extends State<MainViewBody> {
                                     currentIndex = index;
                                   });
                                   if (items[index].title == 'All Products') {
-                                    getAllProducts();
+                                    await getAllProducts();
                                   } else {
                                     await BlocProvider.of<GetPostsCubit>(
                                             context)

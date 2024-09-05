@@ -16,7 +16,7 @@ class _CustomDrawerState extends State<CustomMenuDrawer> {
     'Cars',
     'Electronics',
     'Mobiles',
-    'Pc and Laptops',
+    'Laptops',
     'Clothes',
     'Shoes',
     'Perfume',

@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:product_pulse/core/utils/styles.dart';
@@ -78,36 +80,38 @@ class _PostItemState extends State<PostItem> {
                 icon: const Icon(Icons.more_vert),
                 onSelected: (Menu item) {},
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
-                  PopupMenuItem<Menu>(
-                    onTap: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return const UsersChatView();
-                      }));
-                    },
-                    value: Menu.contact,
-                    child: ListTile(
-                      leading: const Icon(Icons.message_outlined),
-                      title: Text(
-                        'Chat With',
-                        style: Style.font14SemiBold(context),
-                      ),
-                    ),
-                  ),
-                  PopupMenuItem<Menu>(
-                    onTap: () {},
-                    value: Menu.remove,
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.delete_outline,
-                        color: Colors.red,
-                      ),
-                      title: Text(
-                        'Remove Post',
-                        style: Style.font14SemiBold(context),
-                      ),
-                    ),
-                  ),
+                  widget.postItem.userId ==
+                          FirebaseAuth.instance.currentUser!.uid
+                      ? PopupMenuItem<Menu>(
+                          onTap: () {},
+                          value: Menu.remove,
+                          child: ListTile(
+                            leading: const Icon(
+                              Icons.delete_outline,
+                              color: Colors.red,
+                            ),
+                            title: Text(
+                              'Remove Post',
+                              style: Style.font14SemiBold(context),
+                            ),
+                          ),
+                        )
+                      : PopupMenuItem<Menu>(
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
+                              return const UsersChatView();
+                            }));
+                          },
+                          value: Menu.contact,
+                          child: ListTile(
+                            leading: const Icon(Icons.message_outlined),
+                            title: Text(
+                              'Chat With',
+                              style: Style.font14SemiBold(context),
+                            ),
+                          ),
+                        )
                 ],
               ),
             ),
@@ -125,20 +129,23 @@ class _PostItemState extends State<PostItem> {
             Padding(
               padding: const EdgeInsets.only(
                   right: 16, left: 16, bottom: 16, top: 4),
-              child: CachedNetworkImage(
-                width: double.infinity,
-                fit: BoxFit.fill,
-                imageUrl: widget.postItem.image,
-                scale: 1,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CachedNetworkImage(
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                  imageUrl: widget.postItem.image,
+                  scale: 1,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(
+                      color: Color(0xff1F41BB),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                    size: 40,
                     color: Color(0xff1F41BB),
                   ),
-                ),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                  size: 40,
-                  color: Color(0xff1F41BB),
                 ),
               ),
             ),
