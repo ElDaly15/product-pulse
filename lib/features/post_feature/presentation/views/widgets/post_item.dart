@@ -2,11 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 import 'package:product_pulse/features/post_feature/data/models/post_model.dart';
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
+import 'package:product_pulse/features/post_feature/presentation/manager/delete_post/delete_post_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/reactions_view.dart';
 import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/row_of_star_and_comments.dart';
@@ -83,7 +85,10 @@ class _PostItemState extends State<PostItem> {
                   widget.postItem.userId ==
                           FirebaseAuth.instance.currentUser!.uid
                       ? PopupMenuItem<Menu>(
-                          onTap: () {},
+                          onTap: () async {
+                            await BlocProvider.of<DeletePostCubit>(context)
+                                .deletePost(postId: widget.postItem.postId);
+                          },
                           value: Menu.remove,
                           child: ListTile(
                             leading: const Icon(

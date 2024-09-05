@@ -8,10 +8,12 @@ import 'package:product_pulse/core/controller/depency_injection.dart';
 import 'package:product_pulse/core/widgets/waiting_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/add_comment/add_comment_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/add_post/add_post_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/manager/delete_post/delete_post_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_comments/get_comments_cubit.dart';
 
 import 'package:product_pulse/features/post_feature/presentation/manager/get_posts/get_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_reactions/get_reactions_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/manager/get_ur_posts/get_ur_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/reaction_handle/reaction_handle_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/main_view.dart';
@@ -78,6 +80,12 @@ class ProductPulseApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => GetCommentsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DeletePostCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetUrPostsCubit(),
         ),
       ],
       child: GetMaterialApp(
