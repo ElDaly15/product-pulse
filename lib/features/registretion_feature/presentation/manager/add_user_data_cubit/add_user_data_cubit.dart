@@ -35,7 +35,8 @@ class AddUserDataCubit extends Cubit<AddUserDataState> {
         'Gender': gender,
         'bestProduct': bestProduct,
         'email': email,
-        'uid': uid
+        'uid': uid,
+        'fullName': '$firstName $lastName'
       });
       emit(AddUserDataSuccess());
     } catch (e) {

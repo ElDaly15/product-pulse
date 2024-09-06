@@ -3,14 +3,15 @@ import 'package:product_pulse/core/utils/styles.dart';
 
 // ignore: must_be_immutable
 class CustomSearchTextField extends StatefulWidget {
-  CustomSearchTextField({
-    super.key,
-    required this.hintTitle,
-    required this.obscure,
-    required this.onChanged,
-    required this.isPassword,
-  });
+  CustomSearchTextField(
+      {super.key,
+      required this.hintTitle,
+      required this.obscure,
+      required this.onChanged,
+      required this.isPassword,
+      required this.textEditingController});
   final String hintTitle;
+  final TextEditingController textEditingController;
   bool obscure;
 
   final Function(String)? onChanged;
@@ -33,6 +34,7 @@ class _CustomTextFieldState extends State<CustomSearchTextField> {
         selectionHandleColor: const Color(0xff1F41BB), // Handle color
       ),
       child: TextFormField(
+        controller: widget.textEditingController,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'This Field Is Required';

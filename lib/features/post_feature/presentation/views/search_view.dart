@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_search_text_field.dart';
+
 import 'package:product_pulse/features/post_feature/data/models/select_item_model.dart';
+import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/manager/search_posts/search_posts_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/manager/search_users/search_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/widgets/bloc_consumer_for_search_posts.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/widgets/bloc_consumer_for_search_user.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/item_btn_for_tab_bar.dart';
 
 class SearchView extends StatefulWidget {
@@ -12,125 +20,146 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
+  TextEditingController textEditingController = TextEditingController();
   int index = 0;
+  String textSearch = '';
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 22),
-      child: CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 70,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Text(
-              'Select Search Type ',
-              style: Style.font22Bold(context),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 10,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () {
-                    index = 0;
-                    setState(() {});
-                  },
-                  child: ItemBtn(
-                    isChecked: index == 0,
-                    selectItemModel:
-                        SelectItemModel(title: 'Users', iconData: Icons.person),
-                  ),
+    return BlocBuilder<GetUserDataCubit, GetUserDataState>(
+      builder: (context, userState) {
+        if (userState is GetUserDataSuccess) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: CustomScrollView(slivers: [
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 70,
                 ),
-                InkWell(
-                  onTap: () {
-                    index = 1;
-                    setState(() {});
-                  },
-                  child: ItemBtn(
-                    isChecked: index == 1,
-                    selectItemModel: SelectItemModel(
-                        title: 'Products', iconData: Icons.shopify_sharp),
-                  ),
+              ),
+              SliverToBoxAdapter(
+                child: Text(
+                  'Select Search Type ',
+                  style: Style.font22Bold(context),
                 ),
-              ],
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 20,
-            ),
-          ),
-          index == 0
-              ? SliverToBoxAdapter(
-                  child: Text(
-                    'Search For Any User ',
-                    style: Style.font22Bold(context),
-                  ),
-                )
-              : SliverToBoxAdapter(
-                  child: Text(
-                    'Search For Any Product ',
-                    style: Style.font22Bold(context),
-                  ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 10,
                 ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 15,
-            ),
-          ),
-          SliverToBoxAdapter(
-              child: CustomSearchTextField(
-                  hintTitle: 'Search ... ',
-                  obscure: false,
-                  onChanged: (val) {},
-                  isPassword: false)),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 10,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Text(
-              'Search Results ',
-              style: Style.font22Bold(context),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 15,
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, i) {
-              return Padding(
-                padding: i == 3
-                    ? const EdgeInsets.only(bottom: 100)
-                    : const EdgeInsets.only(bottom: 16),
+              ),
+              SliverToBoxAdapter(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        index = 0;
+                        textEditingController.clear();
+                        textSearch = '';
+                        setState(() {});
+                      },
+                      child: ItemBtn(
+                        isChecked: index == 0,
+                        selectItemModel: SelectItemModel(
+                            title: 'Users', iconData: Icons.person),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        index = 1;
+                        textSearch = '';
+                        textEditingController.clear();
+                        setState(() {});
+                      },
+                      child: ItemBtn(
+                        isChecked: index == 1,
+                        selectItemModel: SelectItemModel(
+                            title: 'Products', iconData: Icons.shopify_sharp),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 20,
+                ),
+              ),
+              SliverToBoxAdapter(
                 child: index == 0
-                    ? const SizedBox() //UserProfileItem(
-                    //   onTap: () {
-                    //     Navigator.of(context)
-                    //         .push(MaterialPageRoute(builder: (context) {
-                    //       return const UsersChatView();
-                    //     }));
-                    //   },
-                    // )
-                    : const Text('1'), //PostItem(),
-              );
-            }, childCount: 4),
-          ),
-        ],
-      ),
+                    ? Text(
+                        'Search For Any User ',
+                        style: Style.font22Bold(context),
+                      )
+                    : Text(
+                        'Search For Any Product ',
+                        style: Style.font22Bold(context),
+                      ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 15,
+                ),
+              ),
+              index == 0
+                  ? SliverToBoxAdapter(
+                      child: CustomSearchTextField(
+                          hintTitle: 'Search Users',
+                          obscure: false,
+                          onChanged: (user) {
+                            textSearch = user;
+                            setState(() {});
+                            BlocProvider.of<SearchUsesrCubit>(context)
+                                .searchUsers(userName: user);
+                          },
+                          isPassword: false,
+                          textEditingController: textEditingController),
+                    )
+                  : SliverToBoxAdapter(
+                      child: CustomSearchTextField(
+                          hintTitle: 'Search Products',
+                          obscure: false,
+                          onChanged: (product) {
+                            textSearch = product;
+                            BlocProvider.of<SearchPostsCubit>(context)
+                                .searchPosts(postTitle: product);
+                            setState(() {});
+                          },
+                          isPassword: false,
+                          textEditingController: textEditingController),
+                    ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 10,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Text(
+                  'Results',
+                  style: Style.font22Bold(context),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 10,
+                ),
+              ),
+              index == 0
+                  ? blocConsumerForSearchUser(textSearch: textSearch)
+                  : blocConsumerForSearchPosts(
+                      textSearch: textSearch,
+                      userModel: userState.userDataModel,
+                    )
+            ]),
+          );
+        } else {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: Color(0xff1F41BB),
+          ));
+        }
+      },
     );
   }
 }

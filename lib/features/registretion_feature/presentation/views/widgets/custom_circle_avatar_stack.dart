@@ -96,12 +96,10 @@ class _CustomStartDataImageStackState extends State<CustomStartDataImageStack> {
                                       onPressed: () async {
                                         try {
                                           setState(() {});
-
                                           await getImage(
                                               source: ImageSource.camera);
                                           // ignore: use_build_context_synchronously
                                           Navigator.pop(context);
-                                          widget.onSubmitImage(url!);
 
                                           CustomSnackBar().showSnackBar(
                                               // ignore: use_build_context_synchronously
@@ -139,11 +137,10 @@ class _CustomStartDataImageStackState extends State<CustomStartDataImageStack> {
                                         try {
                                           await getImage(
                                               source: ImageSource.gallery);
-
                                           CustomSnackBar().showSnackBar(
                                               // ignore: use_build_context_synchronously
                                               context: context,
-                                              msg: 'Uploaded');
+                                              msg: 'Image Uploaded');
                                           widget.status(false);
                                           setState(() {});
                                         } catch (e) {

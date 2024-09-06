@@ -9,6 +9,7 @@ class UserDataModel {
   final String birthMonth;
   final String birthYear;
   final String gender;
+  final String fullName;
 
   UserDataModel(
       {required this.firstName,
@@ -20,7 +21,8 @@ class UserDataModel {
       required this.birthDay,
       required this.birthMonth,
       required this.birthYear,
-      required this.gender});
+      required this.gender,
+      required this.fullName});
 
   factory UserDataModel.fromJson(json) {
     return UserDataModel(
@@ -33,6 +35,7 @@ class UserDataModel {
         birthDay: json['birthDay'],
         birthMonth: json['birthMonth'],
         birthYear: json['birthYear'],
-        gender: json['Gender']);
+        gender: json['Gender'],
+        fullName: json['fullName']);
   }
 }
