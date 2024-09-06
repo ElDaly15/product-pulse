@@ -30,11 +30,15 @@ class _CustomStartDataImageStackState extends State<CustomStartDataImageStack> {
     final XFile? imageCamera = await picker.pickImage(source: source);
 
     if (imageCamera != null) {
+      widget.status(true);
+      setState(() {});
       file = File(imageCamera.path);
       var imageName = path.basename(imageCamera.path);
       var refStorage = FirebaseStorage.instance.ref(imageName);
       await refStorage.putFile(file!);
       url = await refStorage.getDownloadURL();
+      widget.onSubmitImage(url!);
+      widget.status(false);
       setState(() {});
     }
   }
@@ -91,7 +95,6 @@ class _CustomStartDataImageStackState extends State<CustomStartDataImageStack> {
                                               const Color(0xff1F41BB)),
                                       onPressed: () async {
                                         try {
-                                          widget.status(true);
                                           setState(() {});
 
                                           await getImage(
@@ -134,8 +137,6 @@ class _CustomStartDataImageStackState extends State<CustomStartDataImageStack> {
                                               const Color(0xff1F41BB)),
                                       onPressed: () async {
                                         try {
-                                          widget.status(true);
-                                          setState(() {});
                                           await getImage(
                                               source: ImageSource.gallery);
 

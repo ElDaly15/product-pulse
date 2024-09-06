@@ -15,9 +15,10 @@ class GetUrPostsCubit extends Cubit<GetUrPostsState> {
   getUrPosts() {
     try {
       emit(GetUrPostsLoading());
+
       FirebaseFirestore.instance
           .collection('posts')
-          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .snapshots()
           .listen((querySnapshot) {
         posts = querySnapshot.docs

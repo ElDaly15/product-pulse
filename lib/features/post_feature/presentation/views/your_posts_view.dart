@@ -9,7 +9,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
-import 'package:product_pulse/features/post_feature/presentation/manager/get_posts/get_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_ur_posts/get_ur_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
 
@@ -82,10 +81,10 @@ class _MainViewBodyState extends State<YourPostsView> {
                       height: 20,
                     ),
                   ),
-                  BlocConsumer<GetPostsCubit, GetPostsState>(
+                  BlocConsumer<GetUrPostsCubit, GetUrPostsState>(
                     listener: (context, state) {},
                     builder: (context, state) {
-                      if (state is GetPostsSuccess) {
+                      if (state is GetUrPostsSuccess) {
                         if (state.posts.isNotEmpty) {
                           return SliverList(
                             delegate:
@@ -127,7 +126,7 @@ class _MainViewBodyState extends State<YourPostsView> {
                             ),
                           );
                         }
-                      } else if (state is GetPostsLoading) {
+                      } else if (state is GetUrPostsLoading) {
                         return const SliverToBoxAdapter(
                             child: Center(
                                 child: CircularProgressIndicator(
