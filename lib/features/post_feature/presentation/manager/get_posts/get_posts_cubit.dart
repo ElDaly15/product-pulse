@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_cast, depend_on_referenced_packages
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';

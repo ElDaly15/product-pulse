@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, empty_catches
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
-import 'package:product_pulse/features/post_feature/presentation/manager/get_posts/get_posts_cubit.dart';
 
 part 'reaction_handle_state.dart';
 
@@ -46,9 +45,7 @@ class ReactionHandleCubit extends Cubit<ReactionHandleState> {
       } else {
         print("No document found for the provided query.");
       }
-    } on Exception catch (e) {
-      // TODO
-    }
+    } catch (e) {}
   }
 
   deleteReaction({
@@ -83,8 +80,6 @@ class ReactionHandleCubit extends Cubit<ReactionHandleState> {
       } else {
         print("No document found for the provided query.");
       }
-    } on Exception catch (e) {
-      // TODO
-    }
+    } catch (e) {}
   }
 }

@@ -49,13 +49,13 @@ class _MainViewBodyState extends State<MainViewBody> {
     super.initState();
     getUserData();
     getAllProducts();
+
     startTime();
   }
 
   void startTime() {
     timer = Timer.periodic(const Duration(minutes: 1), (time) {
       setState(() {});
-      print('hi');
     });
   }
 
@@ -152,7 +152,6 @@ class _MainViewBodyState extends State<MainViewBody> {
                                       'All Products') {
                                     BlocProvider.of<GetPostsCubit>(context)
                                         .getPosts();
-                                    print('here');
                                   } else {
                                     BlocProvider.of<GetPostsCubit>(context)
                                         .getPostsForCategory(
@@ -189,7 +188,6 @@ class _MainViewBodyState extends State<MainViewBody> {
                                   final relativeTime =
                                       formatTimeDifference(dateTime);
 
-                                  print(state.posts.length);
                                   return Padding(
                                     padding: index == state.posts.length - 1
                                         ? const EdgeInsets.only(bottom: 100)
