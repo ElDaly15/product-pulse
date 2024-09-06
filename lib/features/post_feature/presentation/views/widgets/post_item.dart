@@ -105,7 +105,10 @@ class _PostItemState extends State<PostItem> {
                           onTap: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
-                              return const UsersChatView();
+                              return UsersChatView(
+                                name:
+                                    '${widget.postItem.firstName}${widget.postItem.lastName}',
+                              );
                             }));
                           },
                           value: Menu.contact,

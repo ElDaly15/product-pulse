@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
-import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
-
 import 'package:product_pulse/features/chat/presentation/views/widgets/chat_user_item.dart';
 
 class ChatView extends StatelessWidget {
@@ -31,19 +29,19 @@ class ChatView extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 100),
                         child: ChatUserItem(
                           onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return const UsersChatView();
-                            }));
+                            // Navigator.of(context)
+                            //     .push(MaterialPageRoute(builder: (context) {
+                            //   return const UsersChatView();
+                            // }));
                           },
                         ),
                       )
                     : ChatUserItem(
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return const UsersChatView();
-                          }));
+                          // Navigator.of(context)
+                          //     .push(MaterialPageRoute(builder: (context) {
+                          //   return const UsersChatView();
+                          // }));
                         },
                       );
               },

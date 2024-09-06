@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_pulse/core/utils/styles.dart';
+import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/search_users/search_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/user_profile_item.dart';
 
@@ -41,7 +42,14 @@ class blocConsumerForSearchUser extends StatelessWidget {
             return SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 return UserProfileItem(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return UsersChatView(
+                        name: state.users[index].fullName,
+                      );
+                    }));
+                  },
                   name: state.users[index].fullName,
                   image: state.users[index].image,
                 );
@@ -50,8 +58,10 @@ class blocConsumerForSearchUser extends StatelessWidget {
           }
         } else if (state is SearchUserLoading) {
           return const SliverToBoxAdapter(
-            child: CircularProgressIndicator(
-              color: Color(0xff1F41BB),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Color(0xff1F41BB),
+              ),
             ),
           );
         } else if (state is SearchUserFailure) {

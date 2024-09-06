@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 
 class CustomUserChatIAppBar extends StatelessWidget {
-  const CustomUserChatIAppBar({super.key});
+  const CustomUserChatIAppBar({super.key, required this.fullName});
+  final String fullName;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class CustomUserChatIAppBar extends StatelessWidget {
             width: 15,
           ),
           Text(
-            'Mazen Eldaly',
+            fullName,
             style: Style.font22SemiBold(context),
           ),
         ],

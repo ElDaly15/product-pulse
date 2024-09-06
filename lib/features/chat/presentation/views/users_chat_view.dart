@@ -7,8 +7,9 @@ import 'package:product_pulse/features/chat/presentation/views/widgets/chat_buub
 import 'package:product_pulse/features/chat/presentation/views/widgets/custom_chat_user_app_bar.dart';
 
 class UsersChatView extends StatefulWidget {
-  const UsersChatView({super.key});
+  const UsersChatView({super.key, required this.name});
 
+  final String name;
   @override
   State<UsersChatView> createState() => _UsersChatViewState();
 }
@@ -38,7 +39,9 @@ class _UsersChatViewState extends State<UsersChatView> {
               const SafeArea(
                 child: SizedBox(),
               ),
-              const CustomUserChatIAppBar(),
+              CustomUserChatIAppBar(
+                fullName: widget.name,
+              ),
               Expanded(
                 child: ListView.builder(
                   reverse: true,

@@ -70,8 +70,10 @@ class blocConsumerForSearchPosts extends StatelessWidget {
           }
         } else if (state is SearchPostsLoading) {
           return const SliverToBoxAdapter(
-            child: CircularProgressIndicator(
-              color: Color(0xff1F41BB),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Color(0xff1F41BB),
+              ),
             ),
           );
         } else if (state is SearchPostsFailuer) {
