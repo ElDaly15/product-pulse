@@ -27,18 +27,18 @@ class RowOfStarAndComments extends StatelessWidget {
         ElevatedButton(
           style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xffffffff), elevation: 0),
-          onPressed: () {
-            bool checkLike = likes.any((like) {
+          onPressed: () async {
+            bool checkLike = postModel.likes.any((like) {
               return like['uid'] == FirebaseAuth.instance.currentUser!.uid;
             });
 
             if (checkLike) {
-              BlocProvider.of<ReactionHandleCubit>(context).deleteReaction(
+              await BlocProvider.of<ReactionHandleCubit>(context).deleteReaction(
                   postId: postModel.postId,
                   name: '${userDataModel.firstName} ${userDataModel.lastName}',
                   userImage: userDataModel.image);
             } else {
-              BlocProvider.of<ReactionHandleCubit>(context).addReaction(
+              await BlocProvider.of<ReactionHandleCubit>(context).addReaction(
                   postId: postModel.postId,
                   name: '${userDataModel.firstName} ${userDataModel.lastName}',
                   userImage: userDataModel.image);

@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,49 +8,48 @@ import 'package:product_pulse/features/post_feature/data/models/post_model.dart'
 part 'get_posts_state.dart';
 
 class GetPostsCubit extends Cubit<GetPostsState> {
+  StreamSubscription<QuerySnapshot>? _subscription;
+
   GetPostsCubit() : super(GetPostsInitial());
 
   List<PostModel> posts = [];
 
-  getPosts() {
-    try {
-      emit(GetPostsLoading());
-      FirebaseFirestore.instance
-          .collection('posts')
-          .snapshots()
-          .listen((querySnapshot) {
-        posts = querySnapshot.docs
-            .map(
-                // ignore: unnecessary_cast
-                (doc) => PostModel.fromJson(doc.data() as Map<String, dynamic>))
-            .toList();
-
-        emit(GetPostsSuccess(posts: posts));
-      });
-    } catch (e) {
+  void getPosts() {
+    _subscription?.cancel();
+    emit(GetPostsLoading());
+    _subscription = FirebaseFirestore.instance
+        .collection('posts')
+        .snapshots()
+        .listen((querySnapshot) {
+      posts = querySnapshot.docs
+          .map((doc) => PostModel.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+      emit(GetPostsSuccess(posts: posts));
+    }, onError: (error) {
       emit(GetPostsFailuer());
-    }
+    });
   }
 
-  getPostsForCategory({required String category}) {
-    posts = [];
-    try {
-      emit(GetPostsLoading());
-      FirebaseFirestore.instance
-          .collection('posts')
-          .where('category', isEqualTo: category)
-          .snapshots()
-          .listen((querySnapshot) {
-        posts = querySnapshot.docs
-            .map(
-                // ignore: unnecessary_cast
-                (doc) => PostModel.fromJson(doc.data() as Map<String, dynamic>))
-            .toList();
-
-        emit(GetPostsSuccess(posts: posts));
-      });
-    } catch (e) {
+  void getPostsForCategory({required String category}) {
+    _subscription?.cancel();
+    emit(GetPostsLoading());
+    _subscription = FirebaseFirestore.instance
+        .collection('posts')
+        .where('category', isEqualTo: category)
+        .snapshots()
+        .listen((querySnapshot) {
+      posts = querySnapshot.docs
+          .map((doc) => PostModel.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+      emit(GetPostsSuccess(posts: posts));
+    }, onError: (error) {
       emit(GetPostsFailuer());
-    }
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _subscription?.cancel();
+    return super.close();
   }
 }

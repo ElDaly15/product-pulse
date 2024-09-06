@@ -29,6 +29,7 @@ class _MainViewBodyState extends State<MainViewBody> {
   bool isAsync = false;
 
   UserDataModel? user;
+  String currentCategory = 'All Products';
   Timer? timer;
 
   List<SelectItemModel> items = [
@@ -43,12 +44,6 @@ class _MainViewBodyState extends State<MainViewBody> {
     SelectItemModel(iconData: FontAwesomeIcons.shuffle, title: 'Other'),
   ];
 
-  void startTime() {
-    timer = Timer.periodic(const Duration(minutes: 1), (time) {
-      setState(() {});
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -57,12 +52,19 @@ class _MainViewBodyState extends State<MainViewBody> {
     startTime();
   }
 
+  void startTime() {
+    timer = Timer.periodic(const Duration(minutes: 1), (time) {
+      setState(() {});
+      print('hi');
+    });
+  }
+
   getUserData() async {
     await BlocProvider.of<GetUserDataCubit>(context).getUserData();
   }
 
   getAllProducts() async {
-    await BlocProvider.of<GetPostsCubit>(context).getPosts();
+    BlocProvider.of<GetPostsCubit>(context).getPosts();
   }
 
   @override
@@ -146,11 +148,13 @@ class _MainViewBodyState extends State<MainViewBody> {
                                   setState(() {
                                     currentIndex = index;
                                   });
-                                  if (items[index].title == 'All Products') {
-                                    await getAllProducts();
+                                  if (items[currentIndex].title ==
+                                      'All Products') {
+                                    BlocProvider.of<GetPostsCubit>(context)
+                                        .getPosts();
+                                    print('here');
                                   } else {
-                                    await BlocProvider.of<GetPostsCubit>(
-                                            context)
+                                    BlocProvider.of<GetPostsCubit>(context)
                                         .getPostsForCategory(
                                             category: items[index].title);
                                   }
@@ -184,6 +188,8 @@ class _MainViewBodyState extends State<MainViewBody> {
                                   final dateTime = timestamp.toDate();
                                   final relativeTime =
                                       formatTimeDifference(dateTime);
+
+                                  print(state.posts.length);
                                   return Padding(
                                     padding: index == state.posts.length - 1
                                         ? const EdgeInsets.only(bottom: 100)
