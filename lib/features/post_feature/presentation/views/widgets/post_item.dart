@@ -11,6 +11,7 @@ import 'package:product_pulse/features/post_feature/data/models/user_data_model.
 import 'package:product_pulse/features/post_feature/presentation/manager/delete_post/delete_post_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/reactions_view.dart';
 import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/widgets/image_preview_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/row_of_star_and_comments.dart';
 
 enum Menu { contact, remove }
@@ -143,22 +144,35 @@ class _PostItemState extends State<PostItem> {
             Padding(
               padding: const EdgeInsets.only(
                   right: 16, left: 16, bottom: 16, top: 4),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: CachedNetworkImage(
-                  width: double.infinity,
-                  fit: BoxFit.fill,
-                  imageUrl: widget.postItem.image,
-                  scale: 1,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ImagePreviewScreen(
+                        imageUrl: widget.postItem.image,
+                        imageId:
+                            '${widget.postItem.postId} ${widget.postItem.userId} ${widget.postItem.userEmail}', // Use postId as the unique tag
+                      ),
+                    ),
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: CachedNetworkImage(
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                    imageUrl: widget.postItem.image,
+                    scale: 1,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xff1F41BB),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => const Icon(
+                      Icons.error,
+                      size: 40,
                       color: Color(0xff1F41BB),
                     ),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(
-                    Icons.error,
-                    size: 40,
-                    color: Color(0xff1F41BB),
                   ),
                 ),
               ),
