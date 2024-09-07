@@ -146,7 +146,10 @@ class _SearchViewState extends State<SearchView> {
                 ),
               ),
               index == 0
-                  ? blocConsumerForSearchUser(textSearch: textSearch)
+                  ? blocConsumerForSearchUser(
+                      textSearch: textSearch,
+                      userDataModel: userState.userDataModel,
+                    )
                   : blocConsumerForSearchPosts(
                       textSearch: textSearch,
                       userModel: userState.userDataModel,

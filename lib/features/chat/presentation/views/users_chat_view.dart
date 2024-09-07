@@ -17,12 +17,16 @@ class UsersChatView extends StatefulWidget {
       {super.key,
       required this.name,
       required this.userEmail,
-      required this.fullName,
-      required this.image});
+      required this.newFullName,
+      required this.image,
+      required this.imageOfMe,
+      required this.nameOfme});
 
   final String name;
   final String userEmail;
-  final String fullName;
+  final String newFullName;
+
+  final String imageOfMe, nameOfme;
 
   final String image;
   @override
@@ -132,7 +136,9 @@ class _UsersChatViewState extends State<UsersChatView> {
                                 textEditingController.clear();
                                 BlocProvider.of<AddMessageCubit>(context)
                                     .sendMessage(
-                                        nameOfUser: widget.fullName,
+                                        imageOfmE: widget.imageOfMe,
+                                        nameOfmE: widget.nameOfme,
+                                        nameOfUser: widget.newFullName,
                                         imageOfUser: widget.image,
                                         sendEmail: widget.userEmail,
                                         myEmail: FirebaseAuth

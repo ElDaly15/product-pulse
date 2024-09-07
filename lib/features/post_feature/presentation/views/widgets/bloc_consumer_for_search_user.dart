@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
+import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/search_users/search_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/user_profile_item.dart';
 
@@ -11,9 +12,11 @@ class blocConsumerForSearchUser extends StatelessWidget {
   const blocConsumerForSearchUser({
     super.key,
     required this.textSearch,
+    required this.userDataModel,
   });
 
   final String textSearch;
+  final UserDataModel userDataModel;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,9 @@ class blocConsumerForSearchUser extends StatelessWidget {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return UsersChatView(
-                        fullName: state.users[index].fullName,
+                        imageOfMe: userDataModel.image,
+                        nameOfme: userDataModel.fullName,
+                        newFullName: state.users[index].fullName,
                         image: state.users[index].image,
                         userEmail: state.users[index].email,
                         name: state.users[index].fullName,
