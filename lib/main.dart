@@ -6,11 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:product_pulse/core/controller/depency_injection.dart';
 import 'package:product_pulse/core/widgets/waiting_view.dart';
+import 'package:product_pulse/features/chat/presentation/manager/add_message_cubit/add_message_cubit.dart';
+import 'package:product_pulse/features/chat/presentation/manager/get_chat_messages_cubit/get_chat_messages_cubit.dart';
+import 'package:product_pulse/features/chat/presentation/manager/get_chat_of_users/get_chat_of_usesr_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/add_comment/add_comment_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/add_post/add_post_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/delete_post/delete_post_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_comments/get_comments_cubit.dart';
-
 import 'package:product_pulse/features/post_feature/presentation/manager/get_posts/get_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_reactions/get_reactions_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_ur_posts/get_ur_posts_cubit.dart';
@@ -24,7 +26,6 @@ import 'package:product_pulse/features/registretion_feature/presentation/manager
 import 'package:product_pulse/features/registretion_feature/presentation/manager/google_auth/google_auth_cubit.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/manager/register_cubit/register_cubit_cubit.dart';
-
 import 'package:product_pulse/features/registretion_feature/presentation/views/start_app_view.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/start_data_view.dart';
 import 'package:product_pulse/firebase_options.dart';
@@ -95,6 +96,15 @@ class ProductPulseApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SearchPostsCubit(),
         ),
+        BlocProvider(
+          create: (context) => AddMessageCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetChatMessagesCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetChatOfUsesrCubit(),
+        ),
       ],
       child: GetMaterialApp(
         locale: DevicePreview.locale(context),
@@ -106,12 +116,12 @@ class ProductPulseApp extends StatelessWidget {
                 listener: (context, state) {
                   if (state is CheckUserIdSuccess) {
                     if (state.checkUserId) {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
                         return const MainView();
                       }));
                     } else {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) {
                             return const StartDataView();

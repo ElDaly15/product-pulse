@@ -10,10 +10,12 @@ class CustomCommentTextField extends StatefulWidget {
       required this.onSubmit,
       required this.isPassword,
       required this.textEditingController,
-      required this.focusNode});
+      required this.focusNode,
+      required this.onFieldSubmitted});
   final String hintTitle;
   final TextEditingController textEditingController;
   final FocusNode focusNode;
+  final Function(String)? onFieldSubmitted;
   bool obscure;
 
   final Function(String)? onSubmit;
@@ -51,6 +53,7 @@ class _CustomTextFieldState extends State<CustomCommentTextField> {
           return null;
         },
         onChanged: widget.onSubmit,
+        onFieldSubmitted: widget.onFieldSubmitted,
 
         minLines: 1, // Minimum number of lines
         maxLines: null, // Allows the field to grow dynamically

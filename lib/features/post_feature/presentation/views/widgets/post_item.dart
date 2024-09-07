@@ -106,6 +106,9 @@ class _PostItemState extends State<PostItem> {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
                               return UsersChatView(
+                                image: widget.userDataModel.image,
+                                fullName: widget.userDataModel.fullName,
+                                userEmail: widget.userDataModel.email,
                                 name:
                                     '${widget.postItem.firstName}${widget.postItem.lastName}',
                               );

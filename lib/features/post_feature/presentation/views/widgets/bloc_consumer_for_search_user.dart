@@ -46,6 +46,9 @@ class blocConsumerForSearchUser extends StatelessWidget {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return UsersChatView(
+                        fullName: state.users[index].fullName,
+                        image: state.users[index].image,
+                        userEmail: state.users[index].email,
                         name: state.users[index].fullName,
                       );
                     }));

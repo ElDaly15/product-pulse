@@ -127,6 +127,7 @@ class _CommentsViewState extends State<CommentsView> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: CustomCommentTextField(
+                        onFieldSubmitted: (v) {},
                         focusNode: _focusNode,
                         hintTitle: 'send a comment',
                         textEditingController: textEditingController,
