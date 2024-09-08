@@ -8,6 +8,7 @@ import 'package:product_pulse/features/post_feature/data/models/post_model.dart'
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/add_comment/add_comment_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_comments/get_comments_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/edit_comment_view.dart';
 
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/comment_item.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/settings_app_bar.dart';
@@ -69,10 +70,68 @@ class _CommentsViewState extends State<CommentsView> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 20),
-                            child: CommentItem(
-                              image: state.comments[index].image,
-                              comment: state.comments[index].comment,
-                              name: state.comments[index].name,
+                            child: GestureDetector(
+                              onLongPress: () {
+                                showModalBottomSheet(
+                                    backgroundColor: const Color(0xffFFFFFF),
+                                    context: context,
+                                    builder: (context) {
+                                      return SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            ListTile(
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) {
+                                                  return EditCommentView(
+                                                    userName: widget
+                                                        .userDataModel.fullName,
+                                                    userImage: widget
+                                                        .userDataModel.image,
+                                                    postId:
+                                                        widget.postModel.postId,
+                                                    commentId: state
+                                                        .comments[index]
+                                                        .commentId,
+                                                    comment: state
+                                                        .comments[index]
+                                                        .comment,
+                                                  );
+                                                }));
+                                              },
+                                              leading: const Icon(
+                                                Icons.edit,
+                                                color: Colors.black,
+                                              ),
+                                              title: Text(
+                                                'Edit Comment',
+                                                style:
+                                                    Style.font18Bold(context),
+                                              ),
+                                            ),
+                                            ListTile(
+                                              onTap: () {},
+                                              leading: const Icon(
+                                                Icons.delete,
+                                                color: Colors.black,
+                                              ),
+                                              title: Text(
+                                                'Delete Comment',
+                                                style:
+                                                    Style.font18Bold(context),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: CommentItem(
+                                image: state.comments[index].image,
+                                comment: state.comments[index].comment,
+                                name: state.comments[index].name,
+                              ),
                             ),
                           );
                         },

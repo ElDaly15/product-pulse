@@ -4,11 +4,13 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
 
 part 'add_comment_state.dart';
 
 class AddCommentCubit extends Cubit<AddCommentState> {
   AddCommentCubit() : super(AddCommentInitial());
+  Uuid uuid = const Uuid();
 
   addComment(
       {required String postId,
@@ -32,6 +34,7 @@ class AddCommentCubit extends Cubit<AddCommentState> {
               {
                 'uid': FirebaseAuth.instance.currentUser!.uid,
                 'comment': comment,
+                'commentId': uuid.v4(),
                 'userName': userName,
                 'userImage': userImage
               }
