@@ -13,6 +13,7 @@ import 'package:product_pulse/features/post_feature/data/models/select_item_mode
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_posts/get_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/widgets/fakeItems.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/item_btn_for_tab_bar.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/post_item.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/start_app_view.dart';
@@ -199,13 +200,7 @@ class _MainViewBodyState extends State<MainViewBody> {
                                     ),
                                   );
                                 } else {
-                                  return const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 8),
-                                    child: Center(
-                                        child: CircularProgressIndicator(
-                                      color: Color(0xff1F41BB),
-                                    )),
-                                  );
+                                  return const Fakeitemofpost();
                                 }
                               }, childCount: state.posts.length),
                             );
@@ -238,10 +233,7 @@ class _MainViewBodyState extends State<MainViewBody> {
             ),
           );
         } else {
-          return const Center(
-              child: CircularProgressIndicator(
-            color: Color(0xff1F41BB),
-          ));
+          return const Fakeitemofpost();
         }
       },
     );
