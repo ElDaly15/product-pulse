@@ -222,7 +222,9 @@ class _MainViewBodyState extends State<MainViewBody> {
                           return SliverList(
                             delegate:
                                 SliverChildBuilderDelegate((context, index) {
-                              return const Fakeitemofpost();
+                              return index == 0
+                                  ? const FakeStart()
+                                  : const Fakeitemofpost();
                             }, childCount: 6),
                           );
                         } else {
@@ -243,7 +245,12 @@ class _MainViewBodyState extends State<MainViewBody> {
               child: ListView.builder(
                   itemCount: 6,
                   itemBuilder: (context, index) {
-                    return const Fakeitemofpost();
+                    return index == 0
+                        ? const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: FakeStart(),
+                          )
+                        : const Fakeitemofpost();
                   }));
         }
       },
