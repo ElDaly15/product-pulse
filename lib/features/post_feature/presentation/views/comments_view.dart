@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_comment_text_field.dart';
+import 'package:product_pulse/core/widgets/custom_snack_bar.dart';
 import 'package:product_pulse/features/post_feature/data/models/post_model.dart';
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/add_comment/add_comment_cubit.dart';
@@ -111,7 +112,23 @@ class _CommentsViewState extends State<CommentsView> {
                                               ),
                                             ),
                                             ListTile(
-                                              onTap: () {},
+                                              onTap: () {
+                                                BlocProvider.of<
+                                                            GetCommentsCubit>(
+                                                        context)
+                                                    .deleteComment(
+                                                  postId:
+                                                      widget.postModel.postId,
+                                                  commentId: state
+                                                      .comments[index]
+                                                      .commentId,
+                                                );
+                                                Navigator.pop(context);
+                                                CustomSnackBar().showSnackBar(
+                                                  context: context,
+                                                  msg: 'Comment Deleted',
+                                                );
+                                              },
                                               leading: const Icon(
                                                 Icons.delete,
                                                 color: Colors.black,

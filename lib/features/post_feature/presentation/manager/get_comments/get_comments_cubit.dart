@@ -74,4 +74,37 @@ class GetCommentsCubit extends Cubit<GetCommentsState> {
       emit(GetCommentsFailuer());
     }
   }
+
+  Future<void> deleteComment({
+    required String postId,
+    required String commentId,
+  }) async {
+    try {
+      // Fetch the document containing the post
+      var postDoc = await FirebaseFirestore.instance
+          .collection('posts')
+          .where('postId', isEqualTo: postId)
+          .get();
+
+      if (postDoc.docs.isNotEmpty) {
+        var doc = postDoc.docs.first;
+
+        // Get the current comments list
+        List<dynamic> allComments = doc.data()['comments'] ?? [];
+
+        // Find the comment to be deleted using commentId
+        allComments.removeWhere((comment) => comment['commentId'] == commentId);
+
+        // Update the document with the modified comments list
+        await FirebaseFirestore.instance
+            .collection('posts')
+            .doc(doc.id)
+            .update({'comments': allComments});
+
+        emit(GetCommentsSuccess(comments: comments)); // Re-emit success state
+      }
+    } catch (e) {
+      emit(GetCommentsFailuer());
+    }
+  }
 }
