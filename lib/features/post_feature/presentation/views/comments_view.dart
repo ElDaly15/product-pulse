@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -73,76 +74,126 @@ class _CommentsViewState extends State<CommentsView> {
                             padding: const EdgeInsets.only(bottom: 20),
                             child: GestureDetector(
                               onLongPress: () {
-                                showModalBottomSheet(
-                                    backgroundColor: const Color(0xffFFFFFF),
-                                    context: context,
-                                    builder: (context) {
-                                      return SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            ListTile(
-                                              onTap: () {
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
+                                FirebaseAuth.instance.currentUser!.uid ==
+                                        state.comments[index].uid
+                                    ? showModalBottomSheet(
+                                        backgroundColor:
+                                            const Color(0xffFFFFFF),
+                                        context: context,
+                                        builder: (context) {
+                                          return SingleChildScrollView(
+                                            child: Column(
+                                              children: [
+                                                ListTile(
+                                                  onTap: () {
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) {
+                                                      return EditCommentView(
+                                                        userName: widget
+                                                            .userDataModel
+                                                            .fullName,
+                                                        userImage: widget
+                                                            .userDataModel
+                                                            .image,
+                                                        postId: widget
+                                                            .postModel.postId,
+                                                        commentId: state
+                                                            .comments[index]
+                                                            .commentId,
+                                                        comment: state
+                                                            .comments[index]
+                                                            .comment,
+                                                      );
+                                                    }));
+                                                  },
+                                                  leading: const Icon(
+                                                    Icons.edit,
+                                                    color: Colors.black,
+                                                  ),
+                                                  title: Text(
+                                                    'Edit Comment',
+                                                    style: Style.font18Bold(
+                                                        context),
+                                                  ),
+                                                ),
+                                                ListTile(
+                                                  onTap: () {
+                                                    showDialog(
+                                                        context: context,
                                                         builder: (context) {
-                                                  return EditCommentView(
-                                                    userName: widget
-                                                        .userDataModel.fullName,
-                                                    userImage: widget
-                                                        .userDataModel.image,
-                                                    postId:
-                                                        widget.postModel.postId,
-                                                    commentId: state
-                                                        .comments[index]
-                                                        .commentId,
-                                                    comment: state
-                                                        .comments[index]
-                                                        .comment,
-                                                  );
-                                                }));
-                                              },
-                                              leading: const Icon(
-                                                Icons.edit,
-                                                color: Colors.black,
-                                              ),
-                                              title: Text(
-                                                'Edit Comment',
-                                                style:
-                                                    Style.font18Bold(context),
-                                              ),
+                                                          return AlertDialog(
+                                                            content: Text(
+                                                              'Are you sure you want to delete this comment?',
+                                                              style: Style
+                                                                  .font18Bold(
+                                                                      context),
+                                                            ),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Text(
+                                                                  'Cancel',
+                                                                  style: Style.font18SemiBold(
+                                                                          context)
+                                                                      .copyWith(
+                                                                          color:
+                                                                              const Color(0xff1F41BB)),
+                                                                ),
+                                                              ),
+                                                              TextButton(
+                                                                onPressed: () {
+                                                                  BlocProvider.of<GetCommentsCubit>(context).deleteComment(
+                                                                      postId: widget
+                                                                          .postModel
+                                                                          .postId,
+                                                                      commentId: state
+                                                                          .comments[
+                                                                              index]
+                                                                          .commentId);
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                  CustomSnackBar()
+                                                                      .showSnackBar(
+                                                                    context:
+                                                                        context,
+                                                                    msg:
+                                                                        'Comment Deleted',
+                                                                  );
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                                child: Text(
+                                                                  'Delete',
+                                                                  style: Style.font18SemiBold(
+                                                                          context)
+                                                                      .copyWith(
+                                                                          color:
+                                                                              Colors.red),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        });
+                                                  },
+                                                  leading: const Icon(
+                                                    Icons.delete,
+                                                    color: Colors.black,
+                                                  ),
+                                                  title: Text(
+                                                    'Delete Comment',
+                                                    style: Style.font18Bold(
+                                                        context),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            ListTile(
-                                              onTap: () {
-                                                BlocProvider.of<
-                                                            GetCommentsCubit>(
-                                                        context)
-                                                    .deleteComment(
-                                                  postId:
-                                                      widget.postModel.postId,
-                                                  commentId: state
-                                                      .comments[index]
-                                                      .commentId,
-                                                );
-                                                Navigator.pop(context);
-                                                CustomSnackBar().showSnackBar(
-                                                  context: context,
-                                                  msg: 'Comment Deleted',
-                                                );
-                                              },
-                                              leading: const Icon(
-                                                Icons.delete,
-                                                color: Colors.black,
-                                              ),
-                                              title: Text(
-                                                'Delete Comment',
-                                                style:
-                                                    Style.font18Bold(context),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    });
+                                          );
+                                        })
+                                    : null;
                               },
                               child: CommentItem(
                                 image: state.comments[index].image,
