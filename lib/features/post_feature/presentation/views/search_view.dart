@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_search_text_field.dart';
@@ -75,7 +76,8 @@ class _SearchViewState extends State<SearchView> {
                       child: ItemBtn(
                         isChecked: index == 1,
                         selectItemModel: SelectItemModel(
-                            title: 'Products', iconData: Icons.shopify_sharp),
+                            title: 'Products',
+                            iconData: FontAwesomeIcons.bagShopping),
                       ),
                     ),
                   ],

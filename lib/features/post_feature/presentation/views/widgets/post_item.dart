@@ -45,34 +45,44 @@ class _PostItemState extends State<PostItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       child: Container(
-        decoration: BoxDecoration(boxShadow: const [
-          BoxShadow(
-            spreadRadius: 1,
-            blurRadius: 1,
-            color: Colors.grey,
-          )
-        ], borderRadius: BorderRadius.circular(8), color: Colors.white),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 3,
+              blurRadius: 5,
+            ),
+          ],
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
+              contentPadding:
+                  const EdgeInsets.only(right: 10, left: 10, top: 5),
               leading: CustomUserCircleAvatar(
                 userImage: widget.postItem.userImage,
               ),
               title: Text(
                 '${widget.postItem.firstName} ${widget.postItem.lastName}',
-                style: Style.font18Medium(context),
+                style: Style.font18Medium(context).copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
               ),
               subtitle: Row(
                 children: [
-                  Text(widget.postTime),
-                  const SizedBox(
-                    width: 5,
-                  ),
+                  Text(widget.postTime,
+                      style: TextStyle(color: Colors.grey[600])),
+                  const SizedBox(width: 5),
                   const Icon(
                     FontAwesomeIcons.earthAmericas,
                     size: 15,
+                    color: Colors.grey,
                   ),
                 ],
               ),
@@ -80,7 +90,7 @@ class _PostItemState extends State<PostItem> {
                 position: PopupMenuPosition.under,
                 surfaceTintColor: const Color(0xffffffff),
                 popUpAnimationStyle: _animationStyle,
-                icon: const Icon(Icons.more_vert),
+                icon: const Icon(Icons.more_vert, color: Colors.black87),
                 onSelected: (Menu item) {},
                 itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
                   widget.postItem.userId ==
@@ -132,37 +142,40 @@ class _PostItemState extends State<PostItem> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  right: 16, left: 16, bottom: 16, top: 4),
+                  right: 16, left: 16, top: 4, bottom: 10),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.postItem.title,
-                  style: Style.font18Medium(context),
+                  style: Style.font18Medium(context).copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    color: Colors.black87,
+                  ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  right: 16, left: 16, bottom: 16, top: 4),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ImagePreviewScreen(
-                        imageUrl: widget.postItem.image,
-                        imageId:
-                            '${widget.postItem.postId} ${widget.postItem.userId} ${widget.postItem.userEmail}', // Use postId as the unique tag
-                      ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ImagePreviewScreen(
+                      imageUrl: widget.postItem.image,
+                      imageId:
+                          '${widget.postItem.postId} ${widget.postItem.userId} ${widget.postItem.userEmail}',
                     ),
-                  );
-                },
+                  ),
+                );
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: CachedNetworkImage(
                     width: double.infinity,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                     imageUrl: widget.postItem.image,
-                    scale: 1,
                     placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(
                         color: Color(0xff1F41BB),
@@ -171,15 +184,14 @@ class _PostItemState extends State<PostItem> {
                     errorWidget: (context, url, error) => const Icon(
                       Icons.error,
                       size: 40,
-                      color: Color(0xff1F41BB),
+                      color: Colors.red,
                     ),
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  right: 16, left: 16, bottom: 16, top: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
                 children: [
                   widget.postItem.likes.isEmpty

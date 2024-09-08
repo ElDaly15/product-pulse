@@ -28,9 +28,13 @@ class CommentItem extends StatelessWidget {
           Container(
             constraints: BoxConstraints(
                 maxWidth: MediaQuery.of(context).size.width - 110),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: const Color(0xfff1f4ff)),
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
+                ),
+                color: Color(0xfff1f4ff)),
             padding: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

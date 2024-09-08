@@ -11,6 +11,7 @@ import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_ur_posts/get_ur_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/widgets/fakeItems.dart';
 
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/post_item.dart';
 
@@ -127,11 +128,12 @@ class _MainViewBodyState extends State<YourPostsView> {
                           );
                         }
                       } else if (state is GetUrPostsLoading) {
-                        return const SliverToBoxAdapter(
-                            child: Center(
-                                child: CircularProgressIndicator(
-                          color: Color(0xff1F41BB),
-                        )));
+                        return SliverList(
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                            return const Fakeitemofpost();
+                          }, childCount: 6),
+                        );
                       } else {
                         return const SliverToBoxAdapter(
                           child: Text('An Error Occuered'),
@@ -144,10 +146,13 @@ class _MainViewBodyState extends State<YourPostsView> {
             ),
           );
         } else {
-          return const Center(
-              child: CircularProgressIndicator(
-            color: Color(0xff1F41BB),
-          ));
+          return Padding(
+              padding: const EdgeInsets.all(22.0),
+              child: ListView.builder(
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return const Fakeitemofpost();
+                  }));
         }
       },
     );

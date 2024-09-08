@@ -16,6 +16,7 @@ class GetChatOfUsesrCubit extends Cubit<GetChatOfUsesrState> {
       emit(GetChatOfUsesrLoading());
       FirebaseFirestore.instance
           .collection(email)
+          .orderBy('msgTime', descending: true)
           .snapshots()
           .listen((querySnapshot) {
         dataUserModelList = querySnapshot.docs

@@ -19,6 +19,7 @@ class GetUrPostsCubit extends Cubit<GetUrPostsState> {
       FirebaseFirestore.instance
           .collection('posts')
           .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .orderBy('postTime', descending: true)
           .snapshots()
           .listen((querySnapshot) {
         posts = querySnapshot.docs

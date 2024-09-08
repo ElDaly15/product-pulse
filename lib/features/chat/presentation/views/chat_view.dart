@@ -34,16 +34,19 @@ class _ChatViewState extends State<ChatView> {
       builder: (context, usersState) {
         if (usersState is GetUserDataSuccess) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
+            padding: const EdgeInsets.symmetric(horizontal: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 60,
                 ),
-                Text(
-                  'Chats',
-                  style: Style.font22Bold(context),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Text(
+                    'Chats',
+                    style: Style.font22Bold(context),
+                  ),
                 ),
                 BlocConsumer<GetChatOfUsesrCubit, GetChatOfUsesrState>(
                   listener: (context, state) {},
@@ -70,6 +73,8 @@ class _ChatViewState extends State<ChatView> {
                                       padding:
                                           const EdgeInsets.only(bottom: 100),
                                       child: ChatUserItem(
+                                        lastMsgTime:
+                                            state.users[index].lastMsgTime,
                                         name: state.users[index].name,
                                         image: state.users[index].image,
                                         lastMsg: state.users[index].lastMsg,
@@ -94,6 +99,8 @@ class _ChatViewState extends State<ChatView> {
                                       ),
                                     )
                                   : ChatUserItem(
+                                      lastMsgTime:
+                                          state.users[index].lastMsgTime,
                                       name: state.users[index].name,
                                       image: state.users[index].image,
                                       lastMsg: state.users[index].lastMsg,

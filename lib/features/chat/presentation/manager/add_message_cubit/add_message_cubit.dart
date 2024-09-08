@@ -60,7 +60,8 @@ class AddMessageCubit extends Cubit<AddMessageState> {
     DocumentSnapshot documentSnapshot = snapshot.docs.first;
     DocumentReference docRef = documentSnapshot.reference;
 
-    await docRef.update({'lastMsg': lastMessage});
+    await docRef.update(
+        {'lastMsg': lastMessage, 'msgTime': FieldValue.serverTimestamp()});
   }
 
   Future<void> _addNewMessage(String userEmail, String otherEmail, String msg,
@@ -69,7 +70,8 @@ class AddMessageCubit extends Cubit<AddMessageState> {
       'email': otherEmail,
       'lastMsg': msg,
       'imageOfUser': imageOfUser,
-      'userNameOfUser': nameOfUser
+      'userNameOfUser': nameOfUser,
+      'msgTime': FieldValue.serverTimestamp(),
     });
   }
 
@@ -81,7 +83,7 @@ class AddMessageCubit extends Cubit<AddMessageState> {
       'id': '${sender}-${receiver}',
       'sender': sender,
       'reciever': receiver,
-      'SendAt': DateTime.now(),
+      'SendAt': FieldValue.serverTimestamp(),
     });
   }
 }

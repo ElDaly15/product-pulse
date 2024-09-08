@@ -200,7 +200,11 @@ class _MainViewBodyState extends State<MainViewBody> {
                                     ),
                                   );
                                 } else {
-                                  return const Fakeitemofpost();
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                      color: Color(0xff1F41BB),
+                                    ),
+                                  );
                                 }
                               }, childCount: state.posts.length),
                             );
@@ -215,11 +219,12 @@ class _MainViewBodyState extends State<MainViewBody> {
                             );
                           }
                         } else if (state is GetPostsLoading) {
-                          return const SliverToBoxAdapter(
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                            color: Color(0xff1F41BB),
-                          )));
+                          return SliverList(
+                            delegate:
+                                SliverChildBuilderDelegate((context, index) {
+                              return const Fakeitemofpost();
+                            }, childCount: 6),
+                          );
                         } else {
                           return const SliverToBoxAdapter(
                             child: Text('An Error Occuered'),
@@ -233,7 +238,13 @@ class _MainViewBodyState extends State<MainViewBody> {
             ),
           );
         } else {
-          return const Fakeitemofpost();
+          return Padding(
+              padding: const EdgeInsets.all(22.0),
+              child: ListView.builder(
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return const Fakeitemofpost();
+                  }));
         }
       },
     );

@@ -49,7 +49,16 @@ class _ReactionsViewState extends State<ReactionsView> {
                     ));
                   } else {
                     return Expanded(
-                      child: ListView.builder(
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return const Divider(
+                            height: 2,
+                            color: Colors.transparent,
+                            indent: 0,
+                            endIndent: 0,
+                            thickness: 0.3,
+                          );
+                        },
                         padding: EdgeInsets.zero,
                         itemCount: state.reactionsModelList.length,
                         itemBuilder: (context, index) {
