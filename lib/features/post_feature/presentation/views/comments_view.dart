@@ -163,8 +163,6 @@ class _CommentsViewState extends State<CommentsView> {
                                                                     msg:
                                                                         'Comment Deleted',
                                                                   );
-                                                                  Navigator.pop(
-                                                                      context);
                                                                 },
                                                                 child: Text(
                                                                   'Delete',

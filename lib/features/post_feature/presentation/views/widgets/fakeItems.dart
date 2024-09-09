@@ -33,6 +33,7 @@ class Fakeitemofpost extends StatelessWidget {
             gender: '1',
             fullName: '1'),
         postItem: PostModel(
+            category: 'Laptobs',
             firstName: '1',
             lastName: '1',
             postId: '12',

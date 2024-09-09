@@ -12,6 +12,7 @@ class PostModel {
   final List<dynamic> likes;
   final List<dynamic> comments;
   final Timestamp? timestamp;
+  final String category;
 
   PostModel(
       {required this.firstName,
@@ -24,7 +25,8 @@ class PostModel {
       required this.image,
       required this.likes,
       required this.comments,
-      required this.timestamp});
+      required this.timestamp,
+      required this.category});
 
   factory PostModel.fromJson(json) {
     return PostModel(
@@ -38,6 +40,7 @@ class PostModel {
         image: json['image'],
         likes: json['likes'],
         comments: json['comments'],
-        timestamp: json['postTime']);
+        timestamp: json['postTime'],
+        category: json['category']);
   }
 }

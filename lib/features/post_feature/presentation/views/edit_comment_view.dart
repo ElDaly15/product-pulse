@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +33,7 @@ class _EditCommentViewState extends State<EditCommentView> {
   Widget build(BuildContext context) {
     return BlocListener<GetCommentsCubit, GetCommentsState>(
       listener: (context, state) {
-        if (state is GetCommentsSuccess) {
-          Navigator.pop(context);
-        }
+        if (state is GetCommentsSuccess) {}
         if (state is GetCommentsFailuer) {
           CustomSnackBar()
               .showSnackBar(context: context, msg: 'Comment Edited Failed');
@@ -99,6 +99,7 @@ class _EditCommentViewState extends State<EditCommentView> {
                                   'userImage': widget.userImage
                                 },
                               );
+                              Navigator.pop(context);
                             },
                       child: Text(
                         'Save',

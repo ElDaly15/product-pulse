@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:product_pulse/core/utils/styles.dart';
+import 'package:product_pulse/core/widgets/custom_snack_bar.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
 import 'package:product_pulse/features/post_feature/data/models/post_model.dart';
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/delete_post/delete_post_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/reactions_view.dart';
 import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/widgets/custom_edit_post_buttom_sheet.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/image_preview_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/row_of_star_and_comments.dart';
 
@@ -133,6 +135,51 @@ class _PostItemState extends State<PostItem> {
                             leading: const Icon(Icons.message_outlined),
                             title: Text(
                               'Chat With',
+                              style: Style.font14SemiBold(context),
+                            ),
+                          ),
+                        ),
+                  FirebaseAuth.instance.currentUser!.uid ==
+                          widget.postItem.userId
+                      ? PopupMenuItem<Menu>(
+                          onTap: () async {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return CustomEditPostBottomSheet(
+                                  postModel: widget.postItem,
+                                  lastTitleOfPost: widget.postItem.title,
+                                );
+                              },
+                            );
+                          },
+                          value: Menu.remove,
+                          child: ListTile(
+                            leading: const Icon(
+                              Icons.edit,
+                              color: Colors.black,
+                            ),
+                            title: Text(
+                              'Edit Post',
+                              style: Style.font14SemiBold(context),
+                            ),
+                          ),
+                        )
+                      : PopupMenuItem<Menu>(
+                          onTap: () async {
+                            CustomSnackBar().showSnackBar(
+                                context: context,
+                                msg:
+                                    'Post Report Send To Admins And Will Reviewed Soon');
+                          },
+                          value: Menu.remove,
+                          child: ListTile(
+                            leading: const Icon(
+                              Icons.report,
+                              color: Colors.black,
+                            ),
+                            title: Text(
+                              'Report Post',
                               style: Style.font14SemiBold(context),
                             ),
                           ),
