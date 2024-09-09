@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -30,6 +31,7 @@ import 'package:product_pulse/features/registretion_feature/presentation/manager
 import 'package:product_pulse/features/registretion_feature/presentation/views/start_app_view.dart';
 import 'package:product_pulse/features/registretion_feature/presentation/views/start_data_view.dart';
 import 'package:product_pulse/firebase_options.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,8 +39,18 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   DependencyInjection.init();
-  runApp(DevicePreview(
-      enabled: false, builder: (context) => const ProductPulseApp()));
+  if (kReleaseMode) {
+    await SentryFlutter.init(
+      (options) {
+        options.dsn =
+            'https://2072ec70eb5216d770f1a8f653ae5699@o4507923492700160.ingest.us.sentry.io/4507923493945344';
+      },
+      appRunner: () => runApp(const ProductPulseApp()),
+    );
+  } else {
+    runApp(DevicePreview(
+        enabled: false, builder: (context) => const ProductPulseApp()));
+  }
 }
 
 class ProductPulseApp extends StatelessWidget {
