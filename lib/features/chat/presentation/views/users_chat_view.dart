@@ -72,6 +72,7 @@ class _UsersChatViewState extends State<UsersChatView> {
                 child: SizedBox(),
               ),
               CustomUserChatIAppBar(
+                image: widget.image,
                 fullName: widget.name,
               ),
               BlocConsumer<GetChatMessagesCubit, GetChatMessagesState>(

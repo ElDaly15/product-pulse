@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
+import 'package:product_pulse/features/chat/presentation/views/widgets/preview_chat_user_image.dart';
 
 class ChatUserItem extends StatelessWidget {
   const ChatUserItem({
@@ -30,8 +31,18 @@ class ChatUserItem extends StatelessWidget {
 
     return ListTile(
       onTap: onTap,
-      leading: CustomUserCircleAvatar(
-        userImage: image,
+      leading: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return PreviewChatUserImage(
+              imageUrl: image,
+              fullNameOfUser: name,
+            );
+          }));
+        },
+        child: CustomUserCircleAvatar(
+          userImage: image,
+        ),
       ),
       title: Text(
         name,
