@@ -99,8 +99,45 @@ class _PostItemState extends State<PostItem> {
                           FirebaseAuth.instance.currentUser!.uid
                       ? PopupMenuItem<Menu>(
                           onTap: () async {
-                            await BlocProvider.of<DeletePostCubit>(context)
-                                .deletePost(postId: widget.postItem.postId);
+                            showDialog(
+                                context: context,
+                                builder: (conetext) {
+                                  return AlertDialog(
+                                    content: Text(
+                                      'Are you sure you want to delete this post?',
+                                      style: Style.font18Bold(context),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          'Cancel',
+                                          style: Style.font18SemiBold(context)
+                                              .copyWith(
+                                                  color:
+                                                      const Color(0xff1F41BB)),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          Navigator.pop(context);
+                                          await BlocProvider.of<
+                                                  DeletePostCubit>(context)
+                                              .deletePost(
+                                                  postId:
+                                                      widget.postItem.postId);
+                                        },
+                                        child: Text(
+                                          'Delete',
+                                          style: Style.font18SemiBold(context)
+                                              .copyWith(color: Colors.red),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                });
                           },
                           value: Menu.remove,
                           child: ListTile(
