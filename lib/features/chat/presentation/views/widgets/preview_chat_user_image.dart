@@ -27,7 +27,6 @@ class PreviewChatUserImage extends StatelessWidget {
             initialScale: PhotoViewComputedScale.contained,
             minScale: PhotoViewComputedScale.contained * 0.8,
             maxScale: PhotoViewComputedScale.covered * 2,
-            enableRotation: true,
             backgroundDecoration: const BoxDecoration(color: Colors.black),
             loadingBuilder: (context, event) => const Center(
                   child: CircularProgressIndicator(

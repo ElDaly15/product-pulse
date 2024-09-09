@@ -271,11 +271,23 @@ class _PostItemState extends State<PostItem> {
                   borderRadius: BorderRadius.circular(8),
                   child: CachedNetworkImage(
                     width: double.infinity,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.cover, // Ensures the image fills its container
                     imageUrl: widget.postItem.image,
-                    placeholder: (context, url) => Skeletonizer(
-                      enabled: true,
-                      child: Image.asset(Assets.imagesVectorLogin),
+                    placeholder: (context, url) => AspectRatio(
+                      aspectRatio:
+                          16 / 9, // Placeholder maintains the same aspect ratio
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Skeletonizer(
+                          enabled: true,
+                          child: Image.asset(
+                            Assets.imagesVectorLogin,
+                            width: double.infinity,
+                            fit: BoxFit
+                                .cover, // Same behavior as the final image
+                          ),
+                        ),
+                      ),
                     ),
                     errorWidget: (context, url, error) => const Icon(
                       Icons.error,
