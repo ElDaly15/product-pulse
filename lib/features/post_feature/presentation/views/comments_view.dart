@@ -123,11 +123,29 @@ class _CommentsViewState extends State<CommentsView> {
                                                         context: context,
                                                         builder: (context) {
                                                           return AlertDialog(
-                                                            content: Text(
-                                                              'Are you sure you want to delete this comment?',
-                                                              style: Style
-                                                                  .font18Bold(
-                                                                      context),
+                                                            contentPadding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    top: 12,
+                                                                    left: 12,
+                                                                    right: 12,
+                                                                    bottom: 16),
+                                                            actionsPadding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    bottom: 5,
+                                                                    right: 5),
+                                                            content: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left: 12),
+                                                              child: Text(
+                                                                'Are you sure you want to delete this comment?',
+                                                                style: Style
+                                                                    .font18Bold(
+                                                                        context),
+                                                              ),
                                                             ),
                                                             actions: [
                                                               TextButton(
@@ -275,6 +293,8 @@ class _CommentsViewState extends State<CommentsView> {
                                           '${widget.userDataModel.firstName} ${widget.userDataModel.lastName}',
                                       userImage: widget.userDataModel.image);
                               textEditingController.clear();
+                              text = '';
+                              setState(() {});
                               _focusNode.unfocus();
                             },
                       icon: Icon(

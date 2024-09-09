@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:product_pulse/core/utils/images.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/core/widgets/custom_snack_bar.dart';
 import 'package:product_pulse/core/widgets/custom_user_circle_avatar.dart';
@@ -15,6 +16,7 @@ import 'package:product_pulse/features/chat/presentation/views/users_chat_view.d
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/custom_edit_post_buttom_sheet.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/image_preview_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/row_of_star_and_comments.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 enum Menu { contact, remove }
 
@@ -103,9 +105,20 @@ class _PostItemState extends State<PostItem> {
                                 context: context,
                                 builder: (conetext) {
                                   return AlertDialog(
-                                    content: Text(
-                                      'Are you sure you want to delete this post?',
-                                      style: Style.font18Bold(context),
+                                    contentPadding: const EdgeInsets.only(
+                                        top: 12,
+                                        left: 12,
+                                        right: 12,
+                                        bottom: 16),
+                                    actionsPadding: const EdgeInsets.only(
+                                        bottom: 5, right: 5),
+                                    content: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8, top: 4),
+                                      child: Text(
+                                        'Are you sure you want to delete this post?',
+                                        style: Style.font18Bold(context),
+                                      ),
                                     ),
                                     actions: [
                                       TextButton(
@@ -260,10 +273,9 @@ class _PostItemState extends State<PostItem> {
                     width: double.infinity,
                     fit: BoxFit.cover,
                     imageUrl: widget.postItem.image,
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(
-                        color: Color(0xff1F41BB),
-                      ),
+                    placeholder: (context, url) => Skeletonizer(
+                      enabled: true,
+                      child: Image.asset(Assets.imagesVectorLogin),
                     ),
                     errorWidget: (context, url, error) => const Icon(
                       Icons.error,
