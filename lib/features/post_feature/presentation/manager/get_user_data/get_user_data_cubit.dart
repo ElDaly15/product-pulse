@@ -10,21 +10,20 @@ part 'get_user_data_state.dart';
 class GetUserDataCubit extends Cubit<GetUserDataState> {
   GetUserDataCubit() : super(GetUserDataInitial());
 
-  getUserData() async {
+  getUserData() {
     try {
       emit(GetUserDataLoading());
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+
+      FirebaseFirestore.instance
           .collection('usersData')
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-          .limit(1)
-          .get();
-
-      if (querySnapshot.docs.isNotEmpty) {
+          .snapshots()
+          .listen((querySnapshot) {
         DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
         UserDataModel user = UserDataModel.fromJson(documentSnapshot.data()!);
 
         emit(GetUserDataSuccess(userDataModel: user));
-      }
+      });
     } catch (e) {
       emit(GetUserDataFailuer());
     }

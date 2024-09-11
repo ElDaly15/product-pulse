@@ -1,5 +1,6 @@
-import 'dart:async';
+// ignore_for_file: unnecessary_import
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,8 +13,10 @@ import 'package:product_pulse/features/post_feature/data/models/user_data_model.
 import 'package:product_pulse/features/post_feature/presentation/manager/get_ur_posts/get_ur_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/fakeItems.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/widgets/item_of_profile.dart';
 
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/post_item.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class YourPostsView extends StatefulWidget {
   const YourPostsView({super.key});
@@ -63,86 +66,91 @@ class _MainViewBodyState extends State<YourPostsView> {
             progressIndicator: const CircularProgressIndicator(
               color: Color(0xff1F41BB),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22),
-              child: CustomScrollView(
-                slivers: [
-                  const SliverToBoxAdapter(
-                      child: SizedBox(
-                    height: 60,
-                  )),
-                  SliverToBoxAdapter(
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                    child: ItemOfProfile(
+                  onSubmitData: (iaLoading) {
+                    isAsync = iaLoading;
+                    setState(() {});
+                  },
+                  userDataModel: userState.userDataModel,
+                  name: userState.userDataModel.fullName,
+                  userImage: userState.userDataModel.image,
+                )),
+                SliverPadding(
+                  padding: const EdgeInsets.only(
+                      right: 22, left: 22, top: 80, bottom: 0),
+                  sliver: SliverToBoxAdapter(
                     child: Text(
                       'Your Posts',
                       style: Style.font20SemiBold(context),
                     ),
                   ),
-                  const SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: 20,
-                    ),
-                  ),
-                  BlocConsumer<GetUrPostsCubit, GetUrPostsState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      if (state is GetUrPostsSuccess) {
-                        if (state.posts.isNotEmpty) {
-                          return SliverList(
-                            delegate:
-                                SliverChildBuilderDelegate((context, index) {
-                              final timestamp = state.posts[index].timestamp;
+                ),
+                BlocConsumer<GetUrPostsCubit, GetUrPostsState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    if (state is GetUrPostsSuccess) {
+                      if (state.posts.isNotEmpty) {
+                        return SliverList(
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                            final timestamp = state.posts[index].timestamp;
 
-                              if (timestamp != null) {
-                                final dateTime = timestamp.toDate();
-                                final relativeTime =
-                                    formatTimeDifference(dateTime);
-                                return Padding(
-                                  padding: index == state.posts.length - 1
-                                      ? const EdgeInsets.only(bottom: 100)
-                                      : const EdgeInsets.only(bottom: 16),
+                            if (timestamp != null) {
+                              final dateTime = timestamp.toDate();
+                              final relativeTime =
+                                  formatTimeDifference(dateTime);
+                              return Padding(
+                                padding: index == state.posts.length - 1
+                                    ? const EdgeInsets.only(bottom: 100)
+                                    : const EdgeInsets.only(bottom: 16),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
                                   child: PostItem(
                                     postTime: relativeTime,
                                     userDataModel: userState.userDataModel,
                                     postItem: state.posts[index],
                                   ),
-                                );
-                              } else {
-                                return const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 8),
-                                  child: Center(
-                                      child: CircularProgressIndicator(
-                                    color: Color(0xff1F41BB),
-                                  )),
-                                );
-                              }
-                            }, childCount: state.posts.length),
-                          );
-                        } else {
-                          return SliverToBoxAdapter(
-                            child: Center(
-                              child: Text(
-                                'No Posts Available Now',
-                                style: Style.font18Bold(context),
-                              ),
-                            ),
-                          );
-                        }
-                      } else if (state is GetUrPostsLoading) {
-                        return SliverList(
-                          delegate:
-                              SliverChildBuilderDelegate((context, index) {
-                            return const Fakeitemofpost();
-                          }, childCount: 6),
+                                ),
+                              );
+                            } else {
+                              return const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                  color: Color(0xff1F41BB),
+                                )),
+                              );
+                            }
+                          }, childCount: state.posts.length),
                         );
                       } else {
-                        return const SliverToBoxAdapter(
-                          child: Text('An Error Occuered'),
+                        return SliverToBoxAdapter(
+                          child: Center(
+                            child: Text(
+                              'No Posts Available Now',
+                              style: Style.font18Bold(context),
+                            ),
+                          ),
                         );
                       }
-                    },
-                  ),
-                ],
-              ),
+                    } else if (state is GetUrPostsLoading) {
+                      return SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          return const Fakeitemofpost();
+                        }, childCount: 6),
+                      );
+                    } else {
+                      return const SliverToBoxAdapter(
+                        child: Text('An Error Occuered'),
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
           );
         } else {

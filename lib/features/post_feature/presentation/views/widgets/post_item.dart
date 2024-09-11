@@ -274,8 +274,7 @@ class _PostItemState extends State<PostItem> {
                     fit: BoxFit.cover, // Ensures the image fills its container
                     imageUrl: widget.postItem.image,
                     placeholder: (context, url) => AspectRatio(
-                      aspectRatio:
-                          16 / 9, // Placeholder maintains the same aspect ratio
+                      aspectRatio: 16 / 9,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: Skeletonizer(

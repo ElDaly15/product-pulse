@@ -21,6 +21,7 @@ class Fakeitemofpost extends StatelessWidget {
       enabled: true,
       child: PostItem(
         userDataModel: UserDataModel(
+            coverImage: Assets.imageOfStartUser,
             firstName: '1',
             lastName: '1',
             image: Assets.imageOfStartUser,
