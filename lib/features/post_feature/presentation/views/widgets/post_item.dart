@@ -171,7 +171,7 @@ class _PostItemState extends State<PostItem> {
                               return UsersChatView(
                                 imageOfMe: widget.userDataModel.image,
                                 nameOfme: widget.userDataModel.fullName,
-                                image: widget.postItem.image,
+                                image: widget.postItem.userImage,
                                 newFullName:
                                     '${widget.postItem.firstName} ${widget.postItem.lastName}',
                                 userEmail: widget.postItem.userEmail,
