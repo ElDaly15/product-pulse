@@ -146,6 +146,8 @@ class _UsersChatViewState extends State<UsersChatView> {
                                             .instance.currentUser!.email!,
                                         msg: text!);
                                 _focusNode.unfocus();
+                                text = '';
+                                setState(() {});
                               },
                         icon: Icon(
                           FontAwesomeIcons.paperPlane,
