@@ -96,7 +96,9 @@ class _EditCommentViewState extends State<EditCommentView> {
                                   'comment': valueOfText,
                                   'commentId': widget.commentId,
                                   'userName': widget.userName,
-                                  'userImage': widget.userImage
+                                  'userImage': widget.userImage,
+                                  'email':
+                                      FirebaseAuth.instance.currentUser!.email,
                                 },
                               );
                               Navigator.pop(context);
