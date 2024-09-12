@@ -309,9 +309,10 @@ class _PostItemState extends State<PostItem> {
                             }));
                           },
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const Icon(
-                                Icons.star,
+                                Icons.star_rate_rounded,
                                 color: Colors.amber,
                               ),
                               Text(

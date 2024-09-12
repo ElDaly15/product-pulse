@@ -24,7 +24,7 @@ class ImagePreviewScreen extends StatelessWidget {
         child: PhotoView(
             imageProvider: CachedNetworkImageProvider(imageUrl),
             initialScale: PhotoViewComputedScale.contained,
-            minScale: PhotoViewComputedScale.contained * 0.8,
+            minScale: PhotoViewComputedScale.contained * 1,
             maxScale: PhotoViewComputedScale.covered * 2,
             backgroundDecoration: const BoxDecoration(color: Colors.black),
             loadingBuilder: (context, event) => const Center(
