@@ -12,7 +12,7 @@ import 'package:product_pulse/features/post_feature/data/models/post_model.dart'
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/delete_post/delete_post_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/reactions_view.dart';
-import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/user_profile_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/custom_edit_post_buttom_sheet.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/image_preview_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/row_of_star_and_comments.dart';
@@ -168,23 +168,19 @@ class _PostItemState extends State<PostItem> {
                           onTap: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
-                              return UsersChatView(
-                                imageOfMe: widget.userDataModel.image,
-                                nameOfme: widget.userDataModel.fullName,
-                                image: widget.postItem.userImage,
-                                newFullName:
-                                    '${widget.postItem.firstName} ${widget.postItem.lastName}',
-                                userEmail: widget.postItem.userEmail,
-                                name:
-                                    '${widget.postItem.firstName}${widget.postItem.lastName}',
+                              return UserProfileView(
+                                email: widget.postItem.userEmail,
+                                myData: widget.userDataModel,
+                                userDataModel: widget.userDataModel,
                               );
                             }));
                           },
                           value: Menu.contact,
                           child: ListTile(
-                            leading: const Icon(Icons.message_outlined),
+                            leading:
+                                const Icon(Icons.person, color: Colors.black),
                             title: Text(
-                              'Chat With',
+                              'Show Profile',
                               style: Style.font14SemiBold(context),
                             ),
                           ),

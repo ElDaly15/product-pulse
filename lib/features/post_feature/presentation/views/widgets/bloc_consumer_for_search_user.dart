@@ -46,10 +46,13 @@ class blocConsumerForSearchUser extends StatelessWidget {
             return SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 return UserProfileItem(
+                  color: Colors.black,
+                  iconData: Icons.person,
                   onPressed: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return UserProfileView(
+                        email: state.users[index].email,
                         myData: userDataModel,
                         userDataModel: state.users[index],
                       );

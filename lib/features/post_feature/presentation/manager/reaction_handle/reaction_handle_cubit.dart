@@ -36,7 +36,8 @@ class ReactionHandleCubit extends Cubit<ReactionHandleState> {
                 {
                   'uid': FirebaseAuth.instance.currentUser!.uid,
                   'name': name,
-                  'image': userImage
+                  'image': userImage,
+                  'email': FirebaseAuth.instance.currentUser!.email
                 }
               ])
             })
@@ -71,7 +72,8 @@ class ReactionHandleCubit extends Cubit<ReactionHandleState> {
                 {
                   'uid': FirebaseAuth.instance.currentUser!.uid,
                   'name': name,
-                  'image': userImage
+                  'image': userImage,
+                  'email': FirebaseAuth.instance.currentUser!.email
                 }
               ])
             })
