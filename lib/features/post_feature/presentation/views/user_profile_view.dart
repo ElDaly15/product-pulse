@@ -93,7 +93,7 @@ class _MainViewBodyState extends State<UserProfileView> {
                         right: 22, left: 22, top: 80, bottom: 0),
                     sliver: SliverToBoxAdapter(
                       child: Text(
-                        'Your Posts',
+                        'Posts',
                         style: Style.font20SemiBold(context),
                       ),
                     ),
