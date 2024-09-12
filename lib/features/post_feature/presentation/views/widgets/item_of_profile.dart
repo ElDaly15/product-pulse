@@ -9,6 +9,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:product_pulse/core/utils/images.dart';
 import 'package:product_pulse/core/utils/styles.dart';
+import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/update_user_data/update_user_data_cubit.dart';
@@ -20,13 +21,13 @@ import 'package:path/path.dart' as path;
 class ItemOfProfile extends StatefulWidget {
   const ItemOfProfile(
       {super.key,
-      required this.name,
-      required this.userImage,
       required this.userDataModel,
-      required this.onSubmitData});
-  final String name;
-  final String userImage;
+      required this.onSubmitData,
+      required this.myData});
+  // final String name;
+  // final String userImage;
   final UserDataModel userDataModel;
+  final UserDataModel myData;
 
   final void Function(bool isAsync) onSubmitData;
 
@@ -166,25 +167,51 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
               child: CircleAvatar(
                 radius: 62,
                 backgroundColor: Colors.white,
-                child: CustomProfileAvatar(userImage: widget.userImage),
+                child:
+                    CustomProfileAvatar(userImage: widget.userDataModel.image),
               ),
             ),
 
-            Positioned(
-              bottom: -20,
-              right: 15,
-              child: SelectImage(
-                onPressed: () {
-                  _imgFromGalleryForCover();
-                },
-              ),
-            ),
+            FirebaseAuth.instance.currentUser!.uid == widget.userDataModel.uid
+                ? Positioned(
+                    bottom: -20,
+                    right: 15,
+                    child: SelectImage(
+                      onPressed: () {
+                        _imgFromGalleryForCover();
+                      },
+                    ),
+                  )
+                : Positioned(
+                    bottom: -20,
+                    right: 15,
+                    child: IconButton(
+                        style: IconButton.styleFrom(
+                            backgroundColor: const Color(0xff1F41BB)),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return UsersChatView(
+                              imageOfMe: widget.myData.image,
+                              nameOfme: widget.myData.fullName,
+                              image: widget.userDataModel.image,
+                              newFullName: widget.userDataModel.fullName,
+                              userEmail: widget.userDataModel.email,
+                              name: widget.userDataModel.fullName,
+                            );
+                          }));
+                        },
+                        icon: const Icon(
+                          Icons.chat,
+                          color: Colors.white,
+                        )),
+                  ),
             // User's name
             Positioned(
               bottom: -35,
               left: 145,
               child: Text(
-                widget.name,
+                widget.userDataModel.fullName,
                 style: Style.font22SemiBold(context),
               ),
             ),

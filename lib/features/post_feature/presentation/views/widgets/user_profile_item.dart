@@ -7,12 +7,14 @@ class UserProfileItem extends StatelessWidget {
       {super.key,
       required this.onTap,
       required this.name,
-      required this.image});
+      required this.image,
+      required this.onPressed});
 
   final Function()? onTap;
 
   final String name;
   final String image;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,13 @@ class UserProfileItem extends StatelessWidget {
       title: Text(
         name,
         style: Style.font18Medium(context),
+      ),
+      trailing: IconButton(
+        onPressed: onPressed,
+        icon: const Icon(
+          Icons.person,
+          color: Colors.black,
+        ),
       ),
     );
   }

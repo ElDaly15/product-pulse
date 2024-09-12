@@ -6,6 +6,7 @@ import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
 import 'package:product_pulse/features/post_feature/data/models/user_data_model.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/search_users/search_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/user_profile_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/user_profile_item.dart';
 
 class blocConsumerForSearchUser extends StatelessWidget {
@@ -45,6 +46,15 @@ class blocConsumerForSearchUser extends StatelessWidget {
             return SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
                 return UserProfileItem(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return UserProfileView(
+                        myData: userDataModel,
+                        userDataModel: state.users[index],
+                      );
+                    }));
+                  },
                   onTap: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {

@@ -70,13 +70,12 @@ class _MainViewBodyState extends State<YourPostsView> {
               slivers: [
                 SliverToBoxAdapter(
                     child: ItemOfProfile(
+                  myData: userState.userDataModel,
                   onSubmitData: (iaLoading) {
                     isAsync = iaLoading;
                     setState(() {});
                   },
                   userDataModel: userState.userDataModel,
-                  name: userState.userDataModel.fullName,
-                  userImage: userState.userDataModel.image,
                 )),
                 SliverPadding(
                   padding: const EdgeInsets.only(
@@ -144,8 +143,12 @@ class _MainViewBodyState extends State<YourPostsView> {
                         }, childCount: 6),
                       );
                     } else {
-                      return const SliverToBoxAdapter(
-                        child: Text('An Error Occuered'),
+                      return SliverToBoxAdapter(
+                        child: Center(
+                            child: Text(
+                          'An Error Occuered',
+                          style: Style.font18SemiBold(context),
+                        )),
                       );
                     }
                   },

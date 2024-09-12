@@ -18,6 +18,7 @@ import 'package:product_pulse/features/post_feature/presentation/manager/get_pos
 import 'package:product_pulse/features/post_feature/presentation/manager/get_reactions/get_reactions_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_ur_posts/get_ur_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
+import 'package:product_pulse/features/post_feature/presentation/manager/get_user_profile_posts/get_user_profile_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/reaction_handle/reaction_handle_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/search_posts/search_posts_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/search_users/search_cubit.dart';
@@ -124,6 +125,9 @@ class ProductPulseApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => UpdateUserDataCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetUserProfilePostsCubit(),
         ),
       ],
       child: GetMaterialApp(

@@ -63,6 +63,7 @@ class _ReactionsViewState extends State<ReactionsView> {
                         itemCount: state.reactionsModelList.length,
                         itemBuilder: (context, index) {
                           return UserProfileItem(
+                            onPressed: () {},
                             image: state.reactionsModelList[index].image,
                             name: state.reactionsModelList[index].name,
                             onTap: () {},
