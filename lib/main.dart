@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:product_pulse/core/controller/depency_injection.dart';
+import 'package:product_pulse/core/helper/fire_base_notification_helper.dart';
 import 'package:product_pulse/core/widgets/waiting_view.dart';
 import 'package:product_pulse/features/chat/presentation/manager/add_message_cubit/add_message_cubit.dart';
 import 'package:product_pulse/features/chat/presentation/manager/get_chat_messages_cubit/get_chat_messages_cubit.dart';
@@ -43,6 +44,7 @@ Future<void> main() async {
   );
   DependencyInjection.init();
   if (kReleaseMode) {
+    FireBaseNotificationHelper().initNotification();
     await SentryFlutter.init(
       (options) {
         options.dsn =
@@ -51,6 +53,7 @@ Future<void> main() async {
       appRunner: () => runApp(const ProductPulseApp()),
     );
   } else {
+    FireBaseNotificationHelper().initNotification();
     runApp(DevicePreview(
         enabled: false, builder: (context) => const ProductPulseApp()));
   }

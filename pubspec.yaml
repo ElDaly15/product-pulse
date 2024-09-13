@@ -42,6 +42,7 @@ dependencies:
   extended_image: ^8.2.1
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
+  firebase_messaging: 14.7.10
   firebase_storage: 11.6.0
   flutter:
     sdk: flutter
@@ -127,7 +128,6 @@ flutter_assets:
 
 # For details regarding fonts from package dependencies,
 # see https://flutter.dev/to/font-from-package
-
 flutter_native_splash:
   color: "#ffffff"
   image: assets/images/logo_removed.png
