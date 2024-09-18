@@ -38,9 +38,7 @@ class _CustomTextFieldState extends State<CustomCreateTextField> {
           if (value == null || value.isEmpty) {
             return '';
           }
-          if (value.length < 20) {
-            return 'Post Must Be At Least 20 Characters';
-          }
+
           if (value.length > 220) {
             return 'Post Must Be At Most 220 Characters';
           }

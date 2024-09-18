@@ -70,6 +70,16 @@ class _MainViewBodyState extends State<UserProfileView> {
       builder: (context, userstate) {
         if (userstate is GetUserSpecificDataSuccess) {
           return Scaffold(
+            floatingActionButton: IconButton(
+              iconSize: 30,
+              style: IconButton.styleFrom(
+                  backgroundColor: const Color(0xff1F41BB)),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back),
+              color: Colors.white,
+            ),
             backgroundColor: const Color(0xffffffff),
             body: ModalProgressHUD(
               inAsyncCall: isAsync,

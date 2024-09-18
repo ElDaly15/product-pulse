@@ -17,7 +17,9 @@ class ItemBtn extends StatelessWidget {
       constraints: BoxConstraints(maxWidth: width * 0.38),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: isChecked ? const Color(0xff1F41BB) : Colors.white,
+        color: isChecked
+            ? const Color(0xff1F41BB)
+            : const Color(0xff1F41BB).withOpacity(0.06),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(

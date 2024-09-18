@@ -27,9 +27,15 @@ class UserProfileItem extends StatelessWidget {
       leading: CustomUserCircleAvatar(
         userImage: image,
       ),
-      title: Text(
-        name,
-        style: Style.font18Medium(context),
+      title: Align(
+        alignment: Alignment.centerLeft,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            name,
+            style: Style.font18Medium(context),
+          ),
+        ),
       ),
       trailing: IconButton(
         onPressed: onPressed,

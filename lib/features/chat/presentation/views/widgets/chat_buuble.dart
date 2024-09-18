@@ -10,8 +10,7 @@ class ChatWidgetBubble extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Container(
           margin: const EdgeInsets.all(8),
-          padding:
-              const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: const BoxDecoration(
               color: Color(0xff1F41BB),
               borderRadius: BorderRadius.only(
@@ -19,9 +18,11 @@ class ChatWidgetBubble extends StatelessWidget {
                 topRight: Radius.circular(16),
                 bottomLeft: Radius.circular(16),
               )),
-          child: Text(msg,
-              style:
-                  Style.font18SemiBold(context).copyWith(color: Colors.white))),
+          child: Text(
+            msg,
+            style: Style.font18SemiBold(context).copyWith(color: Colors.white),
+            textAlign: TextAlign.center,
+          )),
     );
   }
 }
@@ -36,7 +37,7 @@ class ChatWidgetBubblefriend extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Container(
         margin: const EdgeInsets.all(8),
-        padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
             color: const Color(0xff1F41BB).withOpacity(0.5),
             borderRadius: const BorderRadius.only(
@@ -47,14 +48,9 @@ class ChatWidgetBubblefriend extends StatelessWidget {
         child: Text(
           msg,
           style: Style.font18SemiBold(context).copyWith(color: Colors.white),
+          textAlign: TextAlign.center,
         ),
       ),
     );
   }
 }
-
-
-
-
-
-// Align + no height no width to take shape of text 

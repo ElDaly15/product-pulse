@@ -38,7 +38,7 @@ class BirthDayPick extends StatelessWidget {
       isFormValidator: true, // optional
       startYear: 1900, // optional
       endYear: 2023, // optional
-      width: 10, // optional
+      width: 4, // optional
       onChangedDay: (value) => onChangedDay(value!),
       onChangedMonth: (value) => onChangedMonth(value!),
       onChangedYear: (value) => onChangedYear(value!),
@@ -50,7 +50,7 @@ class BirthDayPick extends StatelessWidget {
       // optional
       // optional
       hintYear: 'Year',
-      hintMonth: 'Mon',
+      hintMonth: 'MM',
       errorDay: 'Select Day',
       errorMonth: 'Select Month',
       errorYear: 'Select Year', // optional

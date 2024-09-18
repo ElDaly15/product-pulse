@@ -208,11 +208,14 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                   ),
             // User's name
             Positioned(
-              bottom: -35,
-              left: 145,
-              child: Text(
-                widget.userDataModel.fullName,
-                style: Style.font22SemiBold(context),
+              bottom: -40,
+              left: 140,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  widget.userDataModel.fullName,
+                  style: Style.font22SemiBold(context),
+                ),
               ),
             ),
           ],

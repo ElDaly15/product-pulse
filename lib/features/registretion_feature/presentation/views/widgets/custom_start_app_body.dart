@@ -31,11 +31,13 @@ class CustomStartAppBody extends StatelessWidget {
             ),
             Text(
               'Discover Your',
+              textAlign: TextAlign.center,
               style: Style.font22SemiBold(context)
                   .copyWith(fontSize: 30, color: const Color(0xff1F41BB)),
             ),
             Text(
               'Favorite Products Here',
+              textAlign: TextAlign.center,
               style: Style.font22SemiBold(context)
                   .copyWith(fontSize: 25, color: const Color(0xff1F41BB)),
             ),

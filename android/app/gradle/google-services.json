@@ -14,10 +14,46 @@
       },
       "oauth_client": [
         {
-          "client_id": "396499039511-dborir14uosimc8662ugd5cupq4kfgdf.apps.googleusercontent.com",
+          "client_id": "396499039511-v0fjs4qo0ttutfjapvnh3egv8ac1tv20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBhDuOQhRTWpMowYAhlDr6mrCrWvkYO5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396499039511-v0fjs4qo0ttutfjapvnh3egv8ac1tv20.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396499039511-d91kge59fj9a2tp40ellvv2hl1cnirh6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.productPulse"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396499039511:android:9a5af438e489bc4183f352",
+        "android_client_info": {
+          "package_name": "com.example.product_pulse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396499039511-dhc2tfgedllp532575ke80lktuvpfe97.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.daly.product_pulse",
+            "package_name": "com.example.product_pulse",
             "certificate_hash": "857a0a04bdd09fe932f708b2aa9941c1f58d0f5d"
           }
         },

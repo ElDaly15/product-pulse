@@ -106,6 +106,9 @@ class _CustomStartDataImageStackState extends State<CustomStartDataImageStack> {
                                               context: context,
                                               msg: 'Image Uploaded');
                                           widget.status(false);
+
+                                          // ignore: use_build_context_synchronously
+                                          Navigator.of(context).pop();
                                           setState(() {});
                                         } catch (e) {
                                           CustomSnackBar().showSnackBar(
@@ -142,6 +145,8 @@ class _CustomStartDataImageStackState extends State<CustomStartDataImageStack> {
                                               context: context,
                                               msg: 'Image Uploaded');
                                           widget.status(false);
+                                          // ignore: use_build_context_synchronously
+                                          Navigator.of(context).pop();
                                           setState(() {});
                                         } catch (e) {
                                           CustomSnackBar().showSnackBar(
