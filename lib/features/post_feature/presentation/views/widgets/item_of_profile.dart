@@ -210,13 +210,6 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                           child: CustomProfileAvatar(
                               userImage: widget.userDataModel.image),
                         ),
-                        Positioned(
-                          child: SelectImage(
-                            onPressed: () {
-                              getImageForProfile(source: ImageSource.gallery);
-                            },
-                          ),
-                        ),
                       ],
                     ),
                   )
@@ -236,7 +229,61 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                     right: 15,
                     child: SelectImage(
                       onPressed: () {
-                        _imgFromGalleryForCover();
+                        // _imgFromGalleryForCover();
+
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              backgroundColor: Colors.white,
+                              child: SizedBox(
+                                width: 30,
+                                child: AspectRatio(
+                                  aspectRatio: 2 / 1,
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Spacer(),
+                                        ListTile(
+                                          onTap: () {
+                                            getImageForProfile(
+                                                source: ImageSource.gallery);
+                                            Navigator.pop(context);
+                                          },
+                                          leading: Icon(
+                                            Icons.account_circle_outlined,
+                                            color: Colors.black,
+                                          ),
+                                          title: Text(
+                                            'Edit Profile Picture',
+                                            style: Style.font18Medium(context),
+                                          ),
+                                        ),
+                                        ListTile(
+                                          onTap: () {
+                                            _imgFromGalleryForCover();
+                                            Navigator.pop(context);
+                                          },
+                                          leading: Icon(
+                                            Icons.image_outlined,
+                                            color: Colors.black,
+                                          ),
+                                          title: Text(
+                                            'Edit Cover Picture',
+                                            style: Style.font18Medium(context),
+                                          ),
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
                       },
                     ),
                   )
