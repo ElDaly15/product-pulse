@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:product_pulse/core/utils/images.dart';
@@ -274,8 +275,8 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                                               source: ImageSource.gallery);
                                           Navigator.pop(context);
                                         },
-                                        leading: const Icon(
-                                          Icons.account_circle_outlined,
+                                        leading: Icon(
+                                          FontAwesomeIcons.userPen,
                                           color: Colors.black,
                                         ),
                                         title: Text(
@@ -288,8 +289,8 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                                           _imgFromGalleryForCover();
                                           Navigator.pop(context);
                                         },
-                                        leading: const Icon(
-                                          Icons.image_outlined,
+                                        leading: Icon(
+                                          FontAwesomeIcons.image,
                                           color: Colors.black,
                                         ),
                                         title: Text(
