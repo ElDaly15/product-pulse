@@ -16,6 +16,7 @@ import 'package:product_pulse/features/post_feature/data/models/user_data_model.
 import 'package:product_pulse/features/post_feature/presentation/manager/get_user_data/get_user_data_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/manager/update_user_data/update_user_data_cubit.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/custom_profile_avatar.dart';
+import 'package:product_pulse/features/post_feature/presentation/views/widgets/image_preview_view.dart';
 import 'package:product_pulse/features/post_feature/presentation/views/widgets/select_image_icon.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:path/path.dart' as path;
@@ -173,27 +174,38 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                   });
                 }
               },
-              child: CachedNetworkImage(
-                width: double.infinity,
-                fit: BoxFit.cover,
-                imageUrl: coverImage,
-                height: 210,
-                placeholder: (context, url) => AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Skeletonizer(
-                    enabled: true,
-                    child: Image.asset(
-                      Assets.imagesVectorLogin,
-                      width: double.infinity,
-                      height: 100,
-                      fit: BoxFit.cover,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => ImagePreviewScreen(
+                              imageId: '1',
+                              imageUrl: widget.userDataModel.coverImage,
+                            )),
+                  );
+                },
+                child: CachedNetworkImage(
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  imageUrl: coverImage,
+                  height: 210,
+                  placeholder: (context, url) => AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: Skeletonizer(
+                      enabled: true,
+                      child: Image.asset(
+                        Assets.imagesVectorLogin,
+                        width: double.infinity,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                  size: 40,
-                  color: Colors.red,
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                    size: 40,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ),
@@ -204,11 +216,22 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                     left: 15,
                     child: Stack(
                       children: [
-                        CircleAvatar(
-                          radius: 62,
-                          backgroundColor: Colors.white,
-                          child: CustomProfileAvatar(
-                              userImage: widget.userDataModel.image),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => ImagePreviewScreen(
+                                        imageId: '1',
+                                        imageUrl: widget.userDataModel.image,
+                                      )),
+                            );
+                          },
+                          child: CircleAvatar(
+                            radius: 62,
+                            backgroundColor: Colors.white,
+                            child: CustomProfileAvatar(
+                                userImage: widget.userDataModel.image),
+                          ),
                         ),
                       ],
                     ),
