@@ -275,7 +275,7 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                                               source: ImageSource.gallery);
                                           Navigator.pop(context);
                                         },
-                                        leading: Icon(
+                                        leading: const Icon(
                                           FontAwesomeIcons.userPen,
                                           color: Colors.black,
                                         ),
@@ -289,7 +289,7 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                                           _imgFromGalleryForCover();
                                           Navigator.pop(context);
                                         },
-                                        leading: Icon(
+                                        leading: const Icon(
                                           FontAwesomeIcons.image,
                                           color: Colors.black,
                                         ),
