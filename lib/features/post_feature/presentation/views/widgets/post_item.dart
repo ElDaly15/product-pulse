@@ -21,15 +21,17 @@ import 'package:skeletonizer/skeletonizer.dart';
 enum Menu { contact, remove }
 
 class PostItem extends StatefulWidget {
-  const PostItem(
-      {super.key,
-      required this.postItem,
-      required this.userDataModel,
-      required this.postTime});
+  const PostItem({
+    super.key,
+    required this.postItem,
+    required this.userDataModel,
+    required this.postTime,
+  });
 
   final PostModel postItem;
   final UserDataModel userDataModel;
   final String postTime;
+
   @override
   State<PostItem> createState() => _PostItemState();
 }
@@ -66,6 +68,16 @@ class _PostItemState extends State<PostItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return UserProfileView(
+                    email: widget.postItem.userEmail,
+                    myData: widget.userDataModel,
+                    userDataModel: widget.userDataModel,
+                  );
+                }));
+              },
               contentPadding:
                   const EdgeInsets.only(right: 10, left: 10, top: 5),
               leading: CustomUserCircleAvatar(
