@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:product_pulse/core/utils/images.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
@@ -37,6 +38,7 @@ class ItemOfProfile extends StatefulWidget {
 
 File? imageFile;
 File? file;
+File? secondFile;
 String? secondUrl;
 String? url;
 bool isAsync = false;
@@ -119,6 +121,41 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
     }
   }
 
+  Future<void> getImageForProfile({required ImageSource source}) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imageCamera = await picker.pickImage(source: source);
+    widget.onSubmitData(true);
+    try {
+      if (imageCamera != null) {
+        isAsync = true;
+        setState(() {});
+        secondFile = File(imageCamera.path);
+        var imageName = path.basename(imageCamera.path);
+        var refStorage = FirebaseStorage.instance.ref(imageName);
+        await refStorage.putFile(secondFile!);
+        secondUrl = await refStorage.getDownloadURL();
+        await BlocProvider.of<UpdateUserDataCubit>(context).updateImage(
+          uid: FirebaseAuth.instance.currentUser!.uid,
+          image: secondUrl ?? widget.userDataModel.image,
+        );
+        await BlocProvider.of<UpdateUserDataCubit>(context).updatePostImage(
+          uid: FirebaseAuth.instance.currentUser!.uid,
+          image: secondUrl ?? widget.userDataModel.image,
+        );
+
+        isAsync = false;
+        print(secondUrl);
+        widget.onSubmitData(false);
+
+        setState(() {});
+      }
+    } catch (e) {
+      widget.onSubmitData(false);
+    } finally {
+      widget.onSubmitData(false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String coverImage = widget.userDataModel.coverImage;
@@ -161,16 +198,37 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
               ),
             ),
             // Profile Avatar
-            Positioned(
-              bottom: -50,
-              left: 15,
-              child: CircleAvatar(
-                radius: 62,
-                backgroundColor: Colors.white,
-                child:
-                    CustomProfileAvatar(userImage: widget.userDataModel.image),
-              ),
-            ),
+            FirebaseAuth.instance.currentUser!.uid == widget.userDataModel.uid
+                ? Positioned(
+                    bottom: -50,
+                    left: 15,
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 62,
+                          backgroundColor: Colors.white,
+                          child: CustomProfileAvatar(
+                              userImage: widget.userDataModel.image),
+                        ),
+                        Positioned(
+                          child: SelectImage(
+                            onPressed: () {
+                              getImageForProfile(source: ImageSource.gallery);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Positioned(
+                    bottom: -50,
+                    left: 15,
+                    child: CircleAvatar(
+                      radius: 62,
+                      backgroundColor: Colors.white,
+                      child: CustomProfileAvatar(
+                          userImage: widget.userDataModel.image),
+                    )),
 
             FirebaseAuth.instance.currentUser!.uid == widget.userDataModel.uid
                 ? Positioned(

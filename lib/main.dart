@@ -55,7 +55,7 @@ Future<void> main() async {
   } else {
     FireBaseNotificationHelper().initNotification();
     runApp(DevicePreview(
-        enabled: true, builder: (context) => const ProductPulseApp()));
+        enabled: false, builder: (context) => const ProductPulseApp()));
   }
 }
 

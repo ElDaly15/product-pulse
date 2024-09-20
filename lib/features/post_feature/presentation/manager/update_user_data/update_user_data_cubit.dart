@@ -54,4 +54,55 @@ class UpdateUserDataCubit extends Cubit<UpdateUserDataState> {
       print("No document found for the provided query.");
     }
   }
+
+  updateImage({
+    required String uid,
+    required String image,
+  }) async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance // Get Data You Want To Update First
+            .collection('usersData')
+            .where('uid', isEqualTo: uid)
+            .limit(1)
+            .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+      DocumentReference docRef = documentSnapshot.reference;
+
+      await docRef
+          .update({
+            'image': image,
+          })
+          .then((_) => print("Document Updated"))
+          .catchError((error) => print("Failed to update document: $error"));
+    } else {
+      print("No document found for the provided query.");
+    }
+  }
+
+  updatePostImage({
+    required String uid,
+    required String image,
+  }) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('posts')
+        .where('userId', isEqualTo: uid)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      for (var documentSnapshot in querySnapshot.docs) {
+        DocumentReference docRef = documentSnapshot.reference;
+
+        await docRef
+            .update({
+              'userImage': image,
+            })
+            .then((_) => print("Document Updated for post ID: ${docRef.id}"))
+            .catchError((error) => print("Failed to update document: $error"));
+      }
+    } else {
+      print("No documents found for the provided query.");
+    }
+  }
 }
