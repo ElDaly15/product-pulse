@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
+
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:product_pulse/core/utils/images.dart';
 import 'package:product_pulse/core/utils/styles.dart';
 import 'package:product_pulse/features/chat/presentation/views/users_chat_view.dart';
@@ -144,7 +145,6 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
         );
 
         isAsync = false;
-        print(secondUrl);
         widget.onSubmitData(false);
 
         setState(() {});
@@ -240,44 +240,42 @@ class _ItemOfProfileState extends State<ItemOfProfile> {
                                 width: 30,
                                 child: AspectRatio(
                                   aspectRatio: 2 / 1,
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Spacer(),
-                                        ListTile(
-                                          onTap: () {
-                                            getImageForProfile(
-                                                source: ImageSource.gallery);
-                                            Navigator.pop(context);
-                                          },
-                                          leading: Icon(
-                                            Icons.account_circle_outlined,
-                                            color: Colors.black,
-                                          ),
-                                          title: Text(
-                                            'Edit Profile Picture',
-                                            style: Style.font18Medium(context),
-                                          ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      const Spacer(),
+                                      ListTile(
+                                        onTap: () {
+                                          getImageForProfile(
+                                              source: ImageSource.gallery);
+                                          Navigator.pop(context);
+                                        },
+                                        leading: const Icon(
+                                          Icons.account_circle_outlined,
+                                          color: Colors.black,
                                         ),
-                                        ListTile(
-                                          onTap: () {
-                                            _imgFromGalleryForCover();
-                                            Navigator.pop(context);
-                                          },
-                                          leading: Icon(
-                                            Icons.image_outlined,
-                                            color: Colors.black,
-                                          ),
-                                          title: Text(
-                                            'Edit Cover Picture',
-                                            style: Style.font18Medium(context),
-                                          ),
+                                        title: Text(
+                                          'Edit Profile Picture',
+                                          style: Style.font18Medium(context),
                                         ),
-                                        Spacer(),
-                                      ],
-                                    ),
+                                      ),
+                                      ListTile(
+                                        onTap: () {
+                                          _imgFromGalleryForCover();
+                                          Navigator.pop(context);
+                                        },
+                                        leading: const Icon(
+                                          Icons.image_outlined,
+                                          color: Colors.black,
+                                        ),
+                                        title: Text(
+                                          'Edit Cover Picture',
+                                          style: Style.font18Medium(context),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                    ],
                                   ),
                                 ),
                               ),
