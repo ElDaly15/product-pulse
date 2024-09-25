@@ -1,16 +1,19 @@
-# product_pulse
+# Product Pulse  
+**Duration**: 08/2024 – Present  
+**Technologies**: Flutter, Firebase 
 
-A new Flutter project.
+## Introduction
+Product Pulse is a community-driven application that allows users to post about products and receive recommendations from other users through star ratings and comments. This app aims to facilitate product discovery and enhance user engagement.
 
-## Getting Started
+## Features
+- **User Post Creation**: Allows users to easily create and share posts about various products.
+- **Recommendations and Feedback**: Users can rate products with stars and leave comments, fostering community interaction and support.
+- Built using Flutter for a smooth and responsive cross-platform experience.
+- Integrated Firebase for backend services, ensuring secure data handling and real-time updates.
+- Designed with a user-friendly interface to enhance the overall user experience.
 
-This project is a starting point for a Flutter application.
+## Contributing
+Feel free to fork the project and submit pull requests. All contributions are welcome!
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
